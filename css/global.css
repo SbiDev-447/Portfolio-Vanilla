@@ -1,31 +1,61 @@
+/* ==================================================================
+   Custom Properties (Design Tokens)
+   ================================================================== */
 :root {
-  /*    Colors    */
+  /* --- Colores --- */
   --aquamarine: #79d5ca;
+  --aqua-strong: #a5ece0;
   --gold: #e0c15a;
   --black: #06080f;
+  --text: whitesmoke;
+  --grid-color: rgba(200, 200, 200, 0.3);
+  --grid-size: 50px;
+
+  /* --- Tipografia --- */
+  --font-body: Helvetica, sans-serif;
+  --font-display: "IosevkaTerm Nerd Font", monospace;
+
+  /* --- Medidas --- */
+  --nav-height: 80px;
+  --photo-size: 300px;
 }
 
+/* ==================================================================
+   Reset
+   ================================================================== */
 * {
   margin: 0;
   padding: 0;
-  color: whitesmoke;
+  color: var(--text);
+  box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
-  font-family: Helvetica;
+  scroll-padding-top: var(--nav-height);
+  font-family: var(--font-body);
 }
 
 body {
   background-color: var(--black);
   background-image:
-    linear-gradient(rgba(200, 200, 200, 0.3) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(200, 200, 200, 0.3) 1px, transparent 1px);
-  background-size: 50px 50px; /* Tamaño de cada celda */
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size); /* Tamaño de cada celda */
 }
 
+/* ==================================================================
+   Bloques
+   ================================================================== */
+
+/* =============== Nav =============== */
 nav {
   display: flex;
   align-items: center;
@@ -44,75 +74,75 @@ nav {
   padding: 5px 120px;
   z-index: 9999;
 
-  #logo {
+  .nav-logo {
     display: flex;
     align-items: center;
-  }
 
-  #logo img {
-    -webkit-user-drag: none; /* Chrome, Safari, Edge */
-    -khtml-user-drag: none; /* Konqueror */
-    -moz-user-drag: none; /* Firefox antiguo */
-    -o-user-drag: none; /* Opera antiguo */
-    user-drag: none;
+    img {
+      -webkit-user-drag: none; /* Chrome, Safari, Edge */
+      -khtml-user-drag: none; /* Konqueror */
+      -moz-user-drag: none; /* Firefox antiguo */
+      -o-user-drag: none; /* Opera antiguo */
+      user-drag: none;
+    }
   }
 }
 
+/* =============== Hero =============== */
 header {
   display: flex;
   padding: 50px 150px 5px;
   gap: 80px;
   justify-content: center;
   margin-bottom: 50px;
-}
 
-#photo-profile img {
-  display: block;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  border: 2px solid #a5ece0;
-  box-shadow: 0px 0px 50px #a5ece0;
-  -webkit-user-drag: none; /* Chrome, Safari, Edge */
-  -khtml-user-drag: none; /* Konqueror */
-  -moz-user-drag: none; /* Firefox antiguo */
-  -o-user-drag: none; /* Opera antiguo */
-  user-drag: none;
-}
+  .hero-photo {
+    display: block;
+    width: var(--photo-size);
+    height: var(--photo-size);
+    border-radius: 50%;
+    border: 2px solid var(--aqua-strong);
+    box-shadow: 0 0 50px var(--aqua-strong);
+    -webkit-user-drag: none; /* Chrome, Safari, Edge */
+    -khtml-user-drag: none; /* Konqueror */
+    -moz-user-drag: none; /* Firefox antiguo */
+    -o-user-drag: none; /* Opera antiguo */
+    user-drag: none;
+  }
 
-#about-me {
-  max-width: 600px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-flow: row wrap;
-  gap: 5px;
-  flex: 1;
+  .hero-about {
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row wrap;
+    gap: 5px;
+    flex: 1;
 
-  h1 {
-    font-size: 36px;
+    .hero-title {
+      font-size: 36px;
+
+      .hero-name {
+        color: var(--gold);
+      }
+    }
+
+    .hero-role {
+      font-family: var(--font-display);
+      font-size: 24px;
+
+      .hero-role--dev {
+        color: var(--aquamarine);
+      }
+
+      .hero-role--ai {
+        color: var(--gold);
+      }
+    }
   }
 }
-.strong-color {
-}
 
-.name {
-  color: var(--gold);
-}
-
-.strong {
-  font-family: "IosevkaTerm Nerd Font";
-  font-size: 24px;
-}
-
-#blue {
-  color: var(--aquamarine);
-}
-
-#gold {
-  color: var(--gold);
-}
-
+/* =============== Layout del main =============== */
 main {
   display: flex;
   flex-flow: column wrap;
@@ -123,6 +153,52 @@ main {
   margin-bottom: 50px;
 }
 
+/* =============== Skills =============== */
+.skills {
+  .skills-list {
+    display: flex;
+    flex-flow: column wrap;
+    gap: 8px;
+    list-style: none;
+  }
+
+  .skills-item {
+    font-size: 18px;
+  }
+}
+
+/* =============== Stack =============== */
+.stack {
+  .stack-table {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+  }
+
+  .stack-caption {
+    padding: 8px;
+    font-family: var(--font-display);
+    color: var(--gold);
+  }
+
+  .stack-header-cell {
+    font-family: var(--font-display);
+    color: var(--aquamarine);
+  }
+
+  .stack-row-title {
+    color: var(--gold);
+  }
+
+  .stack-header-cell,
+  .stack-row-title,
+  .stack-cell {
+    padding: 10px 16px;
+    border-bottom: 1px solid color-mix(in srgb, var(--aquamarine) 30%, transparent);
+  }
+}
+
+/* =============== Contacto =============== */
 footer {
   display: flex;
   flex-flow: column wrap;
@@ -131,19 +207,15 @@ footer {
   padding: 5px 150px;
   gap: 15px;
 
-  section {
+  .contact-items {
     display: flex;
     gap: 24px;
-  }
 
-  section div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
+    .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
   }
 }
-
-/*------ Nav ------*/
-
-/*------ Header ------*/

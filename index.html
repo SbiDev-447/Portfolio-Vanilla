@@ -11,7 +11,7 @@
   <body>
     <!--  Nav      Nav      Nav  -->
     <nav>
-      <div id="logo">
+      <div class="nav-logo">
         <img
           src="./files/Sbi-B.webp"
           alt="SbiDev Logo"
@@ -27,16 +27,27 @@
           draggable="false"
         />
       </div>
-      <div id="links">
-        <a href="https://github.com/SbiDev-447" target="_blank">
-          <img alt="My Github" src="./files/github.svg" width="50px" />
+      <div class="nav-links">
+        <a
+          class="nav-link"
+          href="https://github.com/SbiDev-447"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            class="nav-link-img"
+            alt="My Github"
+            src="./files/github.svg"
+            width="50px"
+          />
         </a>
       </div>
     </nav>
     <!--  Header      Header      Header  -->
     <header>
-      <div id="photo-profile">
+      <div class="hero-profile">
         <img
+          class="hero-photo"
           src="./files/me.webp"
           alt="a picture profile Sebastian Briceño - SbiDev"
           width="300"
@@ -44,20 +55,20 @@
           draggable="false"
         />
       </div>
-      <div id="about-me">
-        <h1>
+      <div class="hero-about">
+        <h1 class="hero-title">
           Hola soy
-          <strong class="strong-color name">Sebastian Briceño </strong>también
+          <strong class="hero-name">Sebastian Briceño</strong> también
           conocido como
-          <strong class="strong-color nickname">SbiDev</strong>
+          <strong class="hero-nickname">SbiDev</strong>
         </h1>
-        <span id="positions-jobs">
-          <strong class="strong" id="blue"
+        <span class="hero-roles">
+          <strong class="hero-role hero-role--dev"
             >✔ Junior FullStack Developer
           </strong>
-          <strong class="strong" id="gold"> ✔ IA Engineer</strong>
+          <strong class="hero-role hero-role--ai"> ✔ IA Engineer</strong>
         </span>
-        <p>
+        <p class="hero-bio">
           Técnico Superior en Informática & Autodidacta con 3 años de
           experiencia en <strong>Desarrollo Web, Desktop & CLI</strong>, estoy
           orientado al FullStack con capacidades en el uso de IA con AGENTS LLM,
@@ -66,69 +77,75 @@
       </div>
     </header>
     <main>
-      <section id="skills">
-        <h2>⚒︎ SKILLS</h2>
-        <ul>
-          <li>Architecture Design</li>
-          <li>Experienced in Design and Development</li>
-          <li>Using AGENTS LLM</li>
+      <section class="skills">
+        <h2 class="skills-title">⚒︎ SKILLS</h2>
+        <ul class="skills-list">
+          <li class="skills-item">Architecture Design</li>
+          <li class="skills-item">Experienced in Design and Development</li>
+          <li class="skills-item">Using AGENTS LLM</li>
         </ul>
       </section>
-      <section id="tech-stack">
-        <h2>⌨ Tech Stack</h2>
-        <table>
-          <caption>
-            My Stack&Tools like FullStack
+      <section class="stack">
+        <h2 class="stack-title">⌨ Tech Stack</h2>
+        <table class="stack-table">
+          <caption class="stack-caption">
+            My Stack&amp;Tools like FullStack
           </caption>
           <thead>
             <tr>
-              <th scope="col">Área</th>
-              <th scope="col">Tecnologías</th>
+              <th class="stack-header-cell" scope="col">Área</th>
+              <th class="stack-header-cell" scope="col">Tecnologías</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th scope="row">FrontEnd</th>
-              <td>JavaScript, TypeScript, TaildWindCSS</td>
+              <th class="stack-row-title" scope="row">FrontEnd</th>
+              <td class="stack-cell">JavaScript, TypeScript, TaildWindCSS</td>
             </tr>
             <tr>
-              <th scope="row">BackEnd</th>
-              <td>Node.JS, Express</td>
+              <th class="stack-row-title" scope="row">BackEnd</th>
+              <td class="stack-cell">Node.JS, Express</td>
             </tr>
             <tr>
-              <th scope="row">Editores</th>
-              <td>LazyVim, Zed, VsCode/VsCodium</td>
+              <th class="stack-row-title" scope="row">Editores</th>
+              <td class="stack-cell">LazyVim, Zed, VsCode/VsCodium</td>
             </tr>
             <tr>
-              <th scope="row">Terminal</th>
-              <td>Nvim/Vim, Tmux, Nix</td>
+              <th class="stack-row-title" scope="row">Terminal</th>
+              <td class="stack-cell">Nvim/Vim, Tmux, Nix</td>
             </tr>
             <tr>
-              <th scope="row">Base de Datos</th>
-              <td>MySQL</td>
+              <th class="stack-row-title" scope="row">Base de Datos</th>
+              <td class="stack-cell">MySQL</td>
             </tr>
           </tbody>
         </table>
       </section>
     </main>
     <footer>
-      <h2>Hablemos!</h2>
-      <p>
+      <h2 class="contact-title">Hablemos!</h2>
+      <p class="contact-text">
         ¿Tienes algún proyecto en Mente?, charlemos para lograr la mejor
         solución para desarrollar tu idea y convertirla en algo tangible.
       </p>
-      <section>
-        <div>
+      <section class="contact-items">
+        <div class="contact-item">
           <img
+            class="contact-icon"
             src="./files/pmecdn.protonweb.svg"
             alt="proton icon"
             width="50"
           />
-          <span>SbiDev447@proton.me</span>
+          <span class="contact-label">SbiDev447@proton.me</span>
         </div>
-        <div>
-          <img src="./files/linkedin.svg" alt="linkedin" width="50" />
-          <span>sebastian_briceño_sbidev</span>
+        <div class="contact-item">
+          <img
+            class="contact-icon"
+            src="./files/linkedin.svg"
+            alt="linkedin"
+            width="50"
+          />
+          <span class="contact-label">sebastian_briceño_sbidev</span>
         </div>
       </section>
     </footer>
