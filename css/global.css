@@ -1,23 +1,50 @@
 /* ==================================================================
+   Fuentes
+   ================================================================== */
+@font-face {
+  font-family: "determination";
+  src:
+    url("../fonts/determination.woff2") format("woff2"),
+    url("../fonts/determination.woff") format("woff"),
+    url("../fonts/determination.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IosevkaTerm Nerd Font";
+  src:
+    url("../fonts/IosevkaTermNerdFont-Regular.woff2") format("woff2"),
+    url("../fonts/IosevkaTermNerdFont-Regular.woff") format("woff"),
+    url("../fonts/IosevkaTermNerdFont-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==================================================================
    Custom Properties (Design Tokens)
    ================================================================== */
 :root {
   /* --- Colores --- */
-  --aquamarine: #79d5ca;
-  --aqua-strong: #a5ece0;
-  --gold: #e0c15a;
-  --black: #06080f;
-  --text: whitesmoke;
-  --grid-color: rgba(200, 200, 200, 0.3);
+  --green: #6e915f;
+  --steel-blue: #6693bf;
+  --cyan-soft: #d7e3d8;
+  --orange: #e98a00;
+  --cream: #fdfefe;
+  --paper: #e4d794;
+  --ink: #545464;
+  --grid-color: rgb(84 84 100 / 0.18);
   --grid-size: 50px;
 
   /* --- Tipografia --- */
   --font-body: Helvetica, sans-serif;
-  --font-display: "IosevkaTerm Nerd Font", monospace;
+  --font-display: "IosevkaTerm Nerd Font";
 
   /* --- Medidas --- */
   --nav-height: 80px;
-  --photo-size: 300px;
+  --photo-size: 150px;
 }
 
 /* ==================================================================
@@ -26,7 +53,7 @@
 * {
   margin: 0;
   padding: 0;
-  color: var(--text);
+  color: var(--ink);
   box-sizing: border-box;
 }
 
@@ -44,7 +71,7 @@ html {
 }
 
 body {
-  background-color: var(--black);
+  background-color: var(--cream);
   background-image:
     linear-gradient(var(--grid-color) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
@@ -63,13 +90,13 @@ nav {
   gap: 80px;
   position: sticky;
   top: 0;
-  background: linear-gradient(
+  background-image: linear-gradient(
     45deg,
-    var(--black),
-    var(--black),
-    var(--black),
-    var(--aquamarine),
-    var(--aquamarine)
+    var(--green),
+    var(--green),
+    var(--green),
+    var(--paper),
+    var(--paper)
   );
   padding: 5px 120px;
   z-index: 9999;
@@ -85,24 +112,43 @@ nav {
       -o-user-drag: none; /* Opera antiguo */
       user-drag: none;
     }
+
+    .nav-title {
+      font-family: "determination";
+      font-size: 40px;
+      color: var(--cyan-soft);
+    }
+  }
+
+  .nav-link {
+    transition: box-shadow 0.3s ease;
+
+    .nav-link-img {
+      display: block;
+    }
+  }
+
+  .nav-link-img:hover {
+    box-shadow: 0 0 14px 2px
+      color-mix(in srgb, var(--steel-blue) 50%, transparent);
   }
 }
 
 /* =============== Hero =============== */
 header {
   display: flex;
-  padding: 50px 150px 5px;
+  padding: 50px 125px 5px;
   gap: 80px;
   justify-content: center;
-  margin-bottom: 50px;
+  margin-bottom: 80px;
 
   .hero-photo {
     display: block;
     width: var(--photo-size);
     height: var(--photo-size);
     border-radius: 50%;
-    border: 2px solid var(--aqua-strong);
-    box-shadow: 0 0 50px var(--aqua-strong);
+    border: 2px solid var(--steel-blue);
+    box-shadow: 0 0 45px color-mix(in srgb, var(--steel-blue) 35%, transparent);
     -webkit-user-drag: none; /* Chrome, Safari, Edge */
     -khtml-user-drag: none; /* Konqueror */
     -moz-user-drag: none; /* Firefox antiguo */
@@ -111,7 +157,7 @@ header {
   }
 
   .hero-about {
-    max-width: 600px;
+    max-width: 800px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -120,24 +166,46 @@ header {
     flex: 1;
 
     .hero-title {
-      font-size: 36px;
+      font-size: 44px;
+      padding-bottom: 10px;
+
+      .hero-name,
+      .hero-nickname {
+        font-family: "determination";
+        font-size: 48px;
+      }
 
       .hero-name {
-        color: var(--gold);
+        color: var(--orange);
       }
+
+      .hero-nickname {
+        color: var(--green);
+      }
+    }
+
+    .hero-role--dev,
+    .hero-role--ai {
+      text-shadow:
+        0 0 4px color-mix(in srgb, currentColor 55%, transparent),
+        0 0 12px color-mix(in srgb, currentColor 25%, transparent);
     }
 
     .hero-role {
       font-family: var(--font-display);
       font-size: 24px;
+    }
 
-      .hero-role--dev {
-        color: var(--aquamarine);
-      }
+    .hero-role--dev {
+      color: var(--green);
+    }
 
-      .hero-role--ai {
-        color: var(--gold);
-      }
+    .hero-role--ai {
+      color: var(--orange);
+    }
+
+    .hero-bio {
+      font-size: 20px;
     }
   }
 }
@@ -155,46 +223,95 @@ main {
 
 /* =============== Skills =============== */
 .skills {
+  .skills-title {
+    font-family: determination;
+    font-size: 44px;
+    padding-bottom: 10px;
+  }
+
   .skills-list {
-    display: flex;
-    flex-flow: column wrap;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
     list-style: none;
   }
 
   .skills-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 24px 16px;
+    text-align: center;
     font-size: 18px;
+    border: 1px solid color-mix(in srgb, var(--green) 40%, transparent);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--green) 8%, transparent);
+    transition:
+      box-shadow 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .skills-item:hover {
+    box-shadow: 0 0 14px color-mix(in srgb, var(--steel-blue) 45%, transparent);
+    transform: translateY(-3px);
+  }
+
+  .skills-icon {
+    font-family: var(--font-display);
+    font-size: 52px;
   }
 }
 
 /* =============== Stack =============== */
 .stack {
-  .stack-table {
-    width: 100%;
-    max-width: 800px;
-    border-collapse: collapse;
+  .stack-title {
+    font-size: 44px;
+    font-family: determination;
+    padding-bottom: 10px;
   }
 
-  .stack-caption {
-    padding: 8px;
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  .stack-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 20px 16px;
+    border: 1px solid color-mix(in srgb, var(--green) 40%, transparent);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--green) 8%, transparent);
+    transition:
+      box-shadow 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .stack-card:hover {
+    box-shadow: 0 0 14px color-mix(in srgb, var(--steel-blue) 45%, transparent);
+    transform: translateY(-3px);
+  }
+
+  .stack-area {
     font-family: var(--font-display);
-    color: var(--gold);
+    font-size: 20px;
+    color: var(--ink);
   }
 
-  .stack-header-cell {
-    font-family: var(--font-display);
-    color: var(--aquamarine);
-  }
+  .stack-pills {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 8px;
 
-  .stack-row-title {
-    color: var(--gold);
-  }
-
-  .stack-header-cell,
-  .stack-row-title,
-  .stack-cell {
-    padding: 10px 16px;
-    border-bottom: 1px solid color-mix(in srgb, var(--aquamarine) 30%, transparent);
+    img {
+      height: 28px;
+      border-radius: 6px;
+    }
   }
 }
 
@@ -216,6 +333,34 @@ footer {
       align-items: center;
       justify-content: center;
       gap: 24px;
+    }
+  }
+}
+
+.end {
+  background-color: #06080f;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  padding: 50px 150px;
+
+  .end-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    img {
+      -webkit-user-drag: none; /* Chrome, Safari, Edge */
+      -khtml-user-drag: none; /* Konqueror */
+      -moz-user-drag: none; /* Firefox antiguo */
+      -o-user-drag: none; /* Opera antiguo */
+      user-drag: none;
+    }
+
+    .end-title {
+      font-family: "determination";
+      font-size: 40px;
+      color: var(--cyan-soft);
     }
   }
 }
