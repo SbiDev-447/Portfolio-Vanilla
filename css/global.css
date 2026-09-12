@@ -56,6 +56,7 @@
   /* --- Medidas --- */
   --nav-height: 80px;
   --photo-size: 150px;
+  --container-width: 1200px;
 }
 
 /* ==================================================================
@@ -87,6 +88,19 @@ body {
     linear-gradient(var(--grid-color) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
   background-size: var(--grid-size) var(--grid-size); /* Tamaño de cada celda */
+}
+
+/* ==================================================================
+   Layout general: caja contenedora centrada
+   ==================================================================
+   Todo el contenido vive dentro de .container: una columna con ancho
+   máximo fijo centrada con márgenes automáticos. Cada sección interna
+   conserva su propio padding, pero TODAS comparten el mismo ancho de
+   contenido y el mismo centro horizontal en pantallas de escritorio.
+   ================================================================== */
+.container {
+  max-width: var(--container-width);
+  margin-inline: auto;
 }
 
 /* ==================================================================
@@ -177,7 +191,7 @@ header {
       .hero-name,
       .hero-nickname {
         font-family: "determination";
-        font-size: 48px;
+        font-size: 52px;
       }
 
       .hero-name {
@@ -267,6 +281,35 @@ main {
   padding: 5px 150px 50px;
 }
 
+/* =============== Títulos de sección: hover solo en el texto + underline L→R =============== */
+.skills-title,
+.stack-title,
+.sobremi-title {
+  position: relative;
+  width: fit-content;
+}
+
+.skills-title::after,
+.stack-title::after,
+.sobremi-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.skills-title:hover::after,
+.stack-title:hover::after,
+.sobremi-title:hover::after {
+  transform: scaleX(1);
+}
+
 /* =============== Skills =============== */
 .skills {
   margin-bottom: 50px;
@@ -274,7 +317,7 @@ main {
   .skills-title {
     font-family: determination;
     font-size: 44px;
-    padding-bottom: 10px;
+    margin-bottom: 15px;
   }
 
   .skills-list {
@@ -293,16 +336,16 @@ main {
     padding: 20px 12px;
     text-align: center;
     font-size: 18px;
-    border: 1px solid color-mix(in srgb, var(--green) 40%, transparent);
+    border: 1px solid color-mix(in srgb, var(--orange) 40%, transparent);
     border-radius: 12px;
-    background: color-mix(in srgb, var(--green) 8%, transparent);
+    background: color-mix(in srgb, var(--orange) 8%, transparent);
     transition:
       box-shadow 0.3s ease,
       transform 0.3s ease;
   }
 
   .skills-item:hover {
-    box-shadow: 0 0 14px color-mix(in srgb, var(--steel-blue) 45%, transparent);
+    box-shadow: 0 0 14px color-mix(in srgb, var(--orange) 45%, transparent);
     transform: translateY(-3px);
   }
 
@@ -317,7 +360,7 @@ main {
   .stack-title {
     font-size: 44px;
     font-family: determination;
-    padding-bottom: 10px;
+    margin-bottom: 15px;
   }
 
   .stack-grid {
@@ -371,6 +414,7 @@ footer {
   justify-content: center;
   padding: 50px 150px;
   gap: 15px;
+  margin-bottom: 50px;
 
   .sobremi {
     display: grid;
@@ -381,12 +425,12 @@ footer {
     .sobremi-title {
       font-family: determination;
       font-size: 44px;
-      padding-bottom: 10px;
+      margin-bottom: 10px;
     }
 
     .sobremi-paragraph {
       max-width: 600px;
-      font-size: 20px;
+      font-size: 24px;
       line-height: 1.5;
       padding-bottom: 12px;
     }
@@ -413,11 +457,11 @@ footer {
 }
 
 .end {
-  background-color: #06080f;
+  background-image: radial-gradient(circle, #06080f, #06080f, #6ac0b5);
   display: flex;
   align-content: center;
   justify-content: center;
-  padding: 50px 150px;
+  padding: 25px 150px;
 
   .end-logo {
     display: flex;
@@ -436,6 +480,222 @@ footer {
       font-family: "determination";
       font-size: 40px;
       color: var(--cyan-soft);
+    }
+  }
+}
+
+/* ==================================================================
+   Media Queries — Responsive
+   ==================================================================
+   Estrategia: desktop-first. El CSS base está pensado para escritorio;
+   estos bloques con `max-width` ajustan el layout cuando la pantalla
+   se encoge por debajo de cada breakpoint.
+
+   IMPORTANTE: van AL FINAL del archivo para que, con la misma
+   especificidad, la cascada haga que estos valores ganen a los base.
+
+   Breapoints elegidos:
+   · ≤ 1024px — tablets / laptops pequeños: se recortan los márgenes.
+   · ≤ 768px  — tablets en vertical / móviles grandes: tipografía menor,
+                Sobre mí pasa de 2 columnas a 1.
+   · ≤ 480px  — móviles pequeños: nav y texto en escala mínima.
+   ================================================================== */
+
+/* ---------- ≤ 1024px (tablets y laptops pequeños) ---------- */
+@media (max-width: 1024px) {
+  header {
+    padding: 40px 40px 5px;
+  }
+
+  main {
+    padding: 5px 40px 50px;
+  }
+
+  footer {
+    padding: 40px 40px;
+  }
+
+  .end {
+    padding: 25px 40px;
+  }
+}
+
+/* ---------- ≤ 768px (tablets verticales y móviles grandes) ---------- */
+@media (max-width: 768px) {
+  nav {
+    flex-wrap: wrap; /* si no cabe en una fila, los items bajan de línea */
+
+    .nav-item {
+      font-size: 15px;
+      padding: 8px 14px;
+    }
+  }
+
+  header {
+    flex-direction: column; /* foto arriba, texto abajo */
+    padding: 35px 20px 5px;
+    gap: 25px;
+    margin-bottom: 60px;
+
+    .hero-about {
+      width: 100%;
+      align-items: flex-start;
+    }
+
+    .hero-title {
+      font-size: 34px;
+
+      .hero-name,
+      .hero-nickname {
+        font-size: 40px;
+      }
+    }
+
+    .hero-role {
+      font-size: 20px;
+    }
+
+    .hero-bio {
+      font-size: 17px;
+    }
+
+    .hero-btn {
+      font-size: 16px;
+      padding: 10px 18px;
+    }
+  }
+
+  .skills-title,
+  .stack-title,
+  .sobremi-title {
+    font-size: 38px;
+  }
+
+  footer .sobremi {
+    grid-template-columns: 1fr; /* 2 columnas → 1 */
+    gap: 30px;
+    justify-items: center;
+    text-align: center;
+
+    .sobremi-paragraph {
+      font-size: 20px;
+    }
+
+    .sobremi-photo {
+      transform: rotate(6deg);
+    }
+  }
+}
+
+/* ---------- ≤ 480px (móviles pequeños) ---------- */
+@media (max-width: 480px) {
+  :root {
+    /* Se sobreescribe un design token: hereda en todos los usos */
+    --photo-size: 120px;
+  }
+
+  nav {
+    gap: 6px;
+    padding: 6px;
+
+    .nav-item {
+      font-size: 13px;
+      padding: 7px 10px;
+    }
+  }
+
+  header {
+    padding: 30px 16px 5px;
+    gap: 20px;
+    margin-bottom: 50px;
+
+    .hero-title {
+      font-size: 26px;
+
+      .hero-name,
+      .hero-nickname {
+        font-size: 32px;
+      }
+    }
+
+    .hero-role {
+      font-size: 17px;
+    }
+
+    .hero-bio {
+      font-size: 16px;
+    }
+
+    .hero-btn {
+      font-size: 15px;
+      gap: 8px;
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+
+  main {
+    padding: 5px 16px 40px;
+  }
+
+  .skills {
+    .skills-title {
+      font-size: 32px;
+    }
+
+    .skills-list {
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 12px;
+    }
+
+    .skills-item {
+      font-size: 15px;
+      padding: 16px 10px;
+    }
+
+    .skills-icon {
+      font-size: 42px;
+    }
+  }
+
+  .stack {
+    .stack-title {
+      font-size: 32px;
+    }
+
+    .stack-area {
+      font-size: 18px;
+    }
+
+    .stack-pills img {
+      height: 24px;
+    }
+  }
+
+  footer {
+    padding: 35px 16px 40px;
+
+    .sobremi-title {
+      font-size: 32px;
+    }
+
+    .sobremi-paragraph {
+      font-size: 17px;
+    }
+
+    .sobremi-photo img {
+      max-width: 230px;
+    }
+  }
+
+  .end {
+    padding: 20px 16px;
+
+    .end-title {
+      font-size: 30px;
     }
   }
 }
