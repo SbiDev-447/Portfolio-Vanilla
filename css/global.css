@@ -435,6 +435,14 @@ footer {
       padding-bottom: 12px;
     }
 
+    .sobremi-name {
+      color: var(--orange);
+    }
+
+    .sobremi-nickname {
+      color: var(--green);
+    }
+
     .sobremi-photo {
       display: flex;
       justify-content: center;
