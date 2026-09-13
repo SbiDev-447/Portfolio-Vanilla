@@ -467,16 +467,21 @@ footer {
 .end {
   background-image: radial-gradient(circle, #06080f, #06080f, #6ac0b5);
   display: flex;
-  align-content: center;
+  align-items: center;
   justify-content: center;
   padding: 25px 150px;
 
   .end-logo {
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap; /* si no entra en una fila, centra el texto bajo la imagen */
     gap: 10px;
 
     img {
+      width: 160px;
+      height: auto; /* respeta la proporción intrínseca 640x512 del logo */
+      max-width: 100%;
       -webkit-user-drag: none; /* Chrome, Safari, Edge */
       -khtml-user-drag: none; /* Konqueror */
       -moz-user-drag: none; /* Firefox antiguo */
@@ -593,6 +598,16 @@ footer {
       transform: rotate(6deg);
     }
   }
+
+  .end .end-logo {
+    img {
+      width: 120px;
+    }
+
+    .end-title {
+      font-size: 30px;
+    }
+  }
 }
 
 /* ---------- ≤ 480px (móviles pequeños) ---------- */
@@ -702,8 +717,14 @@ footer {
   .end {
     padding: 20px 16px;
 
-    .end-title {
-      font-size: 30px;
+    .end-logo {
+      img {
+        width: 90px;
+      }
+
+      .end-title {
+        font-size: 30px;
+      }
     }
   }
 }
