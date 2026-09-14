@@ -24,11 +24,11 @@
 }
 
 @font-face {
-  font-family: "Mistical-Spring";
+  font-family: "Roboto Condensed";
   src:
-    url("../fonts/Mistical-Spring.woff2") format("woff2"),
-    url("../fonts/Mistical-Spring.woff") format("woff"),
-    url("../fonts/Mistical-Spring.ttf") format("truetype");
+    url("../fonts/Roboto-Condensed.woff2") format("woff2"),
+    url("../fonts/Roboto-Condensed.woff") format("woff"),
+    url("../fonts/Roboto-Condensed.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -184,9 +184,9 @@ header {
     flex: 1;
 
     .hero-title {
-      font-size: 44px;
+      font-size: 42px;
       padding-bottom: 10px;
-      font-family: "Mistical-Spring";
+      font-family: "Roboto Condensed";
 
       .hero-name,
       .hero-nickname {
