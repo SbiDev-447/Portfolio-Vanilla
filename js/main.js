@@ -7,6 +7,22 @@
 // con file://.
 // ==================================================================
 
+// ==================================================================
+// Utilidades
+// ==================================================================
+
+// Crea un <svg><use href="#..."></use></svg> que referencia un sprite
+// <symbol> definido en index.html.
+function createIcon(symbolId) {
+  const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  icon.setAttribute("viewBox", "0 0 24 24");
+  icon.setAttribute("aria-hidden", "true");
+  const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+  use.setAttribute("href", symbolId);
+  icon.appendChild(use);
+  return icon;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const grid = document.querySelector(".projects-grid");
 
@@ -48,6 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
     btnRepo.target = "_blank";
     btnRepo.rel = "noopener noreferrer";
     btnRepo.textContent = "Repo";
+    btnRepo.prepend(createIcon("#icon-github"));
     buttons.appendChild(btnRepo);
 
     if (project.demo) {
@@ -57,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
       btnDemo.target = "_blank";
       btnDemo.rel = "noopener noreferrer";
       btnDemo.textContent = "Demo";
+      btnDemo.prepend(createIcon("#icon-link"));
       buttons.appendChild(btnDemo);
     }
 
