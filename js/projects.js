@@ -1,4 +1,4 @@
-// ==================================================================
+/* ==================================================================
 // Datos de los proyectos — SOLO datos, sin lógica de render.
 // El render lo hace js/main.js leyendo este array en DOMContentLoaded.
 //
@@ -10,7 +10,7 @@
 //   demo        → enlace a la demo en vivo (OPCIONAL: omítela si no aplica)
 //
 // Si falta `image` o `repo`, la card NO se renderiza (ver main.js).
-// ==================================================================
+================================================================== */
 const projects = [
   {
     title: "NominaSystem",
@@ -34,6 +34,5 @@ const projects = [
       "Colección de dotfiles, configuraciones y scripts para el compositor Niri en Debian 13 Trixie: personalización de entorno, gestión de energía, lanzadores rápidos con Fuzzel, Neovim con LazyVim (basado en GentlemanDots) y utilidades CLI propias.",
     image: "./files/proyect-images/Dotfiles.webp",
     repo: "https://github.com/SbiDev-447/Dotfiles-SbiDev",
-    // demo: no hay — son dotfiles, no se borra porque no aplica
   },
 ];

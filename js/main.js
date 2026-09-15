@@ -1,11 +1,8 @@
-// ==================================================================
-// Render de la sección "Proyectos".
-// Sólo lógica de render: lee el array `projects` (definido en
-// js/projects.js, cargado antes) y construye las cards dentro de
-// .projects-grid. Sin fetch, sin async, sin dependencias: son
-// <a href> simples, por lo que funciona incluso abriendo el sitio
-// con file://.
-// ==================================================================
+/* ==================================================================
+                  Render de la sección "Proyectos".
+Lee el array `projects` (definido en js/projects.js, cargado antes) 
+y construye las cards dentro de .projects-grid. 
+================================================================== */
 
 // ==================================================================
 // Utilidades
