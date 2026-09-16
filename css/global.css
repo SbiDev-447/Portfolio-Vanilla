@@ -58,7 +58,7 @@
   --nav-height: 80px;
   --photo-size: 150px;
   --container-width: 1200px;
-  --section-gap: 50px; /* separación vertical uniforme entre secciones */
+  --section-gap: 70px; /* separación vertical uniforme entre secciones */
 }
 
 /* ==================================================================
@@ -104,15 +104,6 @@ body {
   max-width: var(--container-width);
   margin-inline: auto;
 }
-
-/* ==================================================================
-   Bloques
-   ==================================================================
-   Cada sección principal separa de la siguiente con `margin-bottom:
-   var(--section-gap)` (50px). La separación vive en la sección que
-   TERMINA, nunca en el padding o margen superior de la que sigue, así
-   no se suman espacios.
-   ================================================================== */
 
 /* =============== Nav =============== */
 nav {
@@ -566,7 +557,11 @@ footer {
 
 /* =============== End (cierre de página) =============== */
 .end {
-  background-image: radial-gradient(circle, #06080f, #06080f, #6ac0b5);
+  background-color: #06080f;
+  background-image:
+    linear-gradient(rgb(106 192 181 / 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(106 192 181 / 0.18) 1px, transparent 1px);
+  background-size: 30px 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -637,11 +632,16 @@ footer {
 /* ---------- ≤ 768px (tablets verticales y móviles grandes) ---------- */
 @media (max-width: 768px) {
   nav {
-    flex-wrap: wrap; /* si no cabe en una fila, los items bajan de línea */
+    display: grid; /* una sola fila aunque la pantalla sea angosta */
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    padding: 4px;
+    width: min(100%, 520px);
 
     .nav-item {
-      font-size: 15px;
-      padding: 8px 14px;
+      font-size: clamp(12px, 2.4vw, 15px);
+      padding: 9px 6px;
+      text-align: center;
     }
   }
 
@@ -732,16 +732,19 @@ footer {
   :root {
     /* Se sobreescribe un design token: hereda en todos los usos */
     --photo-size: 120px;
-    --nav-height: 110px; /* el nav envuelve a 2 filas en móvil: compensa las anclas */
   }
 
   nav {
-    gap: 6px;
-    padding: 6px;
+    display: grid; /* una sola fila aunque la pantalla sea angosta */
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    padding: 4px;
+    width: min(100%, 440px);
 
     .nav-item {
-      font-size: 13px;
-      padding: 7px 10px;
+      font-size: clamp(10px, 2.6vw, 13px);
+      padding: 9px 4px;
+      text-align: center;
     }
   }
 
