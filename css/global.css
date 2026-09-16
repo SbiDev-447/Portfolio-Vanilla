@@ -732,6 +732,7 @@ footer {
   :root {
     /* Se sobreescribe un design token: hereda en todos los usos */
     --photo-size: 120px;
+    --nav-height: 110px; /* el nav envuelve a 2 filas en móvil: compensa las anclas */
   }
 
   nav {
