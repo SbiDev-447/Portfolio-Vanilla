@@ -21,18 +21,25 @@ const projects = [
     // demo: sin demo todavía — se omite la propiedad para que no se renderice el botón
   },
   {
-    title: "TurtleGlassesVSCode",
-    description:
-      "Tema de color cuidadosamente diseñado para Visual Studio Code y VSCodium, pensado para la comodidad visual. Inspirado en la calma de las tortugas y la claridad de unas buenas gafas.",
-    image: "./files/proyect-images/turtleglasses.webp",
-    repo: "https://github.com/SbiDev-447/TurtleGlassesVSCode",
-    // demo: sin demo por ahora (pendiente de publicar en el marketplace de Microsoft)
-  },
-  {
     title: "Dotfiles-SbiDev",
     description:
       "Colección de dotfiles, configuraciones y scripts para el compositor Niri en Debian 13 Trixie: personalización de entorno, gestión de energía, lanzadores rápidos con Fuzzel, Neovim con LazyVim (basado en GentlemanDots) y utilidades CLI propias.",
     image: "./files/proyect-images/Dotfiles.webp",
     repo: "https://github.com/SbiDev-447/Dotfiles-SbiDev",
+  },
+  {
+    title: "TurtleGlassesVSCode",
+    description:
+      "Tema de color para Visual Studio Code y VSCodium, pensado para la comodidad visual. Inspirado en la calma de las tortugas y la claridad de unas buenas gafas.",
+    image: "./files/proyect-images/turtleglasses.webp",
+    repo: "https://github.com/SbiDev-447/TurtleGlassesVSCode",
+    // demo: sin demo por ahora (pendiente de publicar en el marketplace de Microsoft)
+  },
+  {
+    title: "TurtleGlasses-GTK",
+    description:
+      "Tema GTK basado en TurtleGlassesVSCode Light que proporciona una interfaz calida y agradable a la vista.",
+    image: "./files/proyect-images/turtleglassesgtk.webp",
+    repo: "https://github.com/SbiDev-447/TurtleGlasses-GTK",
   },
 ];
