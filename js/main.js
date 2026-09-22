@@ -79,3 +79,95 @@ document.addEventListener("DOMContentLoaded", () => {
     grid.appendChild(card);
   }
 });
+
+/* ==================================================================
+              Selector de tema (claro / oscuro / visual).
+Botón fijo en la esquina superior derecha (index.html) con menú
+desplegable. Persistencia en localStorage["theme"]:
+  - "light" / "dark"  → elección explícita del usuario (sobreescribe
+    la preferencia del sistema).
+  - "visual" o vacío  → seguir la preferencia del sistema; "visual"
+    es un valor reservado (se implementa en un cambio futuro).
+El script inline en el <head> ya aplica data-theme en el primer paint
+para evitar el flash; aquí solo se sincroniza el estado del menú y la
+interacción.
+================================================================== */
+
+const THEME_KEY = "theme";
+
+function readStoredTheme() {
+  try {
+    return localStorage.getItem(THEME_KEY);
+  } catch (_) {
+    return null;
+  }
+}
+
+function resolveTheme(choice) {
+  if (choice === "dark") return "dark";
+  if (choice === "light") return "light";
+  // "visual" o sin preferencia guardada → seguir al sistema operativo.
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
+
+function syncMenuState(choice) {
+  const mode = resolveTheme(choice);
+  const items = document.querySelectorAll(".theme-menu__item");
+  items.forEach((item) => {
+    if (item.disabled) return;
+    // Sin elección explícita: el menú refleja el tema realmente aplicado.
+    const expected = choice === null ? mode : choice;
+    item.setAttribute("aria-checked", String(item.dataset.themeChoice === expected));
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("theme-toggle");
+  if (!toggle) return;
+
+  const btn = toggle.querySelector(".theme-toggle__btn");
+  const menu = document.getElementById("theme-menu");
+
+  function closeMenu(returnFocus = false) {
+    toggle.classList.remove("is-open");
+    btn.setAttribute("aria-expanded", "false");
+    if (returnFocus) btn.focus();
+  }
+
+  function selectTheme(choice) {
+    try {
+      localStorage.setItem(THEME_KEY, choice);
+    } catch (_) {}
+    document.documentElement.setAttribute("data-theme", resolveTheme(choice));
+    syncMenuState(choice);
+    closeMenu();
+  }
+
+  btn.addEventListener("click", () => {
+    const open = toggle.classList.toggle("is-open");
+    btn.setAttribute("aria-expanded", String(open));
+  });
+
+  // Cerrar al hacer click fuera del widget.
+  document.addEventListener("click", (event) => {
+    if (!toggle.contains(event.target)) closeMenu();
+  });
+
+  // Cerrar con Escape y devolver el foco al botón.
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && toggle.classList.contains("is-open")) {
+      closeMenu(true);
+    }
+  });
+
+  menu.addEventListener("click", (event) => {
+    const item = event.target.closest(".theme-menu__item");
+    if (!item || item.disabled) return;
+    selectTheme(item.dataset.themeChoice);
+  });
+
+  // Estado inicial: la elección guardada (o el sistema).
+  syncMenuState(readStoredTheme());
+});
