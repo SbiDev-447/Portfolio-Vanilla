@@ -64,6 +64,9 @@ slice único, un solo commit work-unit.
 - T2–T4: ✅ Implementación delegada (`general`, sesión ses_f39262a4fffeS6kzH7HOmD6knm).
   `node --check js/main.js` OK (writer + spot check del orquestador).
 - T5: ✅ Verificación y commit.
+- Post-review del usuario: ✅ marco polaroid (`sobremi-photo img`) siempre blanco —
+  nuevo token `--polaroid-bg: #fdfefe` en ambos temas (antes heredaba `--cream` y se
+  oscurecía en dark).
 
 **Verificación (2026-09-22):**
 - `node --check js/main.js` → OK, exit 0.

@@ -58,6 +58,9 @@
   --end-grid-line: rgb(106 192 181 / 0.18);
   --end-title-color: var(--cyan-soft);
 
+  /* --- Polaroid: el marco de la foto queda SIEMPRE blanco --- */
+  --polaroid-bg: #fdfefe;
+
   /* --- Tipografia --- */
   --font-body: Helvetica, sans-serif;
   --font-display: "IosevkaTerm Nerd Font";
@@ -574,7 +577,7 @@ footer {
         max-width: 300px;
         height: auto;
         padding: 14px 14px 50px;
-        background: var(--cream);
+        background: var(--polaroid-bg);
         border-radius: 6px;
         box-shadow:
           0 12px 24px rgb(0 0 0 / 0.25),
