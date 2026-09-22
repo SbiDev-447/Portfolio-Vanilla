@@ -555,18 +555,17 @@ main {
     gap: 8px;
 
     img {
-      /* Chip suave con fondo blanco (--polaroid-bg): los logos se ven
-         igual en claro, dark y visual; como el marco del polaroid, el
-         blanco es neutral sobre cualquier tema. box-sizing content-box
-         para que el logo conserve su alto sin que el chip lo encoja. */
       height: 28px;
-      box-sizing: content-box;
-      padding: 4px 6px;
-      border: 1px solid color-mix(in srgb, var(--green) 35%, transparent);
-      border-radius: 8px;
-      background: var(--polaroid-bg);
+      border-radius: 6px;
     }
   }
+}
+
+/* En dark, los shields oscuros (Express, GitHub…) se delimitan con un
+   ring sutil en vez de un marco blanco: los badges ya traen su propio
+   fondo, no necesitan chip. */
+[data-theme="dark"] .stack-pills img {
+  box-shadow: 0 0 0 1px rgb(243 246 249 / 0.12);
 }
 
 /* =============== Sobre mí =============== */
