@@ -64,6 +64,8 @@ slice único, un solo commit work-unit.
 - [ ] **T8** — Repasada hovers/colores en cards y píldoras: token `--btn-shadow`
       por tema, `--steel-blue` Gruvbox (`#83a598`) en visual, chip blanco en
       píldoras (`--polaroid-bg`). _(inline, orchestrator)_
+- [ ] **T9** — UX pré-push: respiro móvil nav↔botón (reserva 136px → gap 12px
+      ≤632px) + anclaje del botón al contenedor en desktop. _(inline, orchestrator)_
 
 ## Progress
 
@@ -88,6 +90,11 @@ slice único, un solo commit work-unit.
 en rama `feat/visual-theme`. Push/merge: decisión del usuario.
 - Merge ✅: `feat/visual-theme` fast-forward sobre `main` (155e8a5..6316fe0,
   6 commits, +81/−18), 2026-09-22. Pendiente: push a origin (decisión del usuario).
+- T9 (UX pré-push) ✅: revisión del main OK (JS válido, árbol limpio);
+  diagnóstico confirmado — con la reserva antigua (112px) el nav quedaba a 0px
+  del botón en todo ≤632px (por construcción: 112 = 2×56). Fix: reserva 136px
+  en ≤768 y ≤480 → gap fijo de 12px (verificado 768→68px, 632→12px, 320→12px);
+  botón anclado al contenedor en desktop (`right: max(12px, calc((100vw - 1200px)/2 + 12px))`).
 - T8 (repasada cards/píldoras): ✅ aprobada por el usuario (fix completo
   token-based) — `--btn-shadow` tokenizado por tema (en dark pasa de negro a
   glow claro), `--steel-blue: #83a598` (Gruvbox) en visual para glow de cards
@@ -118,3 +125,4 @@ en rama `feat/theme-mode`. Push/merge/PR: decisión del usuario.
 | T6 | delegated direct (`general`) | Writer trigger: 2+ archivos no triviales (`index.html`, `css/global.css`, `js/main.js`) |
 | T7 | inline | estado/bash + commit |
 | T8 | inline | 1 archivo mecánico (CSS) + aprobación explícita del usuario |
+| T9 | inline | 1 archivo mecánico (CSS) + aprobación explícita del usuario |

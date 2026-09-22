@@ -665,7 +665,10 @@ footer {
 .theme-toggle {
   position: fixed;
   top: 12px;
-  right: 12px;
+  /* Anclado al borde derecho de la columna de contenido cuando hay
+     espacio (≥1200px): participa del layout en vez de flotar suelto.
+     En pantallas menores vuelve al margen fijo de 12px. */
+  right: max(12px, calc((100vw - var(--container-width)) / 2 + 12px));
   z-index: 10000; /* por encima de la nav (9999) */
 }
 
@@ -823,7 +826,9 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
     grid-template-columns: repeat(5, 1fr);
     gap: 4px;
     padding: 4px;
-    width: min(calc(100% - 112px), 520px);
+    /* Reserva 136px (12 margen + 44 botón + 12 respiro): con el nav
+       centrado, su borde derecho queda 12px antes del botón del tema. */
+    width: min(calc(100% - 136px), 520px);
 
     .nav-item {
       font-size: clamp(12px, 2.4vw, 15px);
@@ -927,7 +932,8 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
     grid-template-columns: repeat(5, 1fr);
     gap: 4px;
     padding: 4px;
-    width: min(calc(100% - 112px), 440px);
+    /* Misma reserva 136px que en ≤768: 12px de respiro con el botón. */
+    width: min(calc(100% - 136px), 440px);
 
     .nav-item {
       font-size: clamp(10px, 2.6vw, 13px);
