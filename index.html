@@ -16,11 +16,13 @@
         try {
           stored = localStorage.getItem("theme");
         } catch (_) {}
-        var dark =
-          stored === "dark" ||
-          ((stored === null || stored === "visual") &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches);
-        document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+        var theme =
+          stored === "light" || stored === "dark" || stored === "visual"
+            ? stored
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+        document.documentElement.setAttribute("data-theme", theme);
       })();
     </script>
     <link href="css/global.css" rel="stylesheet" />
@@ -55,7 +57,7 @@
           <button class="theme-menu__item" type="button" role="menuitemradio" data-theme-choice="dark" aria-checked="false">Oscuro</button>
         </li>
         <li role="none">
-          <button class="theme-menu__item" type="button" role="menuitemradio" data-theme-choice="visual" aria-checked="false" disabled>Visual <span class="theme-menu__soon">(pronto)</span></button>
+          <button class="theme-menu__item" type="button" role="menuitemradio" data-theme-choice="visual" aria-checked="false">Visual</button>
         </li>
       </ul>
     </div>

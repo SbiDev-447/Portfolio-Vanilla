@@ -23,8 +23,7 @@ dark mode sea un override de custom properties bajo `[data-theme="dark"]`.
 - Semántica ARIA (`aria-expanded`, `aria-checked`), cierre con Escape y click fuera.
 - Commit work-unit local en rama `feat/theme-mode`. SIN push ni PR.
 
-**Fuera de alcance (explícito):** implementación real del tema "Visual" (futuro),
-`meta theme-color`, cambios en README.
+**Fuera de alcance (explícito):** `meta theme-color`, cambios en README.
 
 **Constraints:**
 - Vanilla CSS/JS, sin build ni framework.
@@ -57,6 +56,11 @@ slice único, un solo commit work-unit.
       dropdown, (T4) engine JS + script inline anti-flash. _(delegated writer: general)_
 - [ ] **T5** — Verificación (sintaxis JS, readback, assess) + commit work-unit.
       _(inline, orchestrator)_
+- [ ] **T6** — Slice 2: tema Visual real (beige `#e9d5a8` + paleta Gruvbox retro) —
+      motor JS (`resolveTheme` + script inline), bloque `[data-theme="visual"]`,
+      habilitar la opción Visual en el menú (quitar `disabled` y "(pronto)").
+      _(delegated writer: general)_
+- [ ] **T7** — Slice 2: verificación + commit work-unit. _(inline, orchestrator)_
 
 ## Progress
 
@@ -70,6 +74,10 @@ slice único, un solo commit work-unit.
 - Post-review del usuario (2): ✅ sombra del polaroid visible en dark — token
   `--polaroid-shadow`: negro en claro, glow claro (`rgb(243 246 249 / 0.12 / 0.08)`)
   en dark (negro sobre fondo casi negro es invisible).
+- Slice 2 (tema Visual): en curso — usuario eligió fondo `#e9d5a8` + paleta Gruvbox
+  retro (tinta `#3c3836`, naranja `#d65d0e`, verde `#689d6a`). Motor: `"visual"` pasa
+  de "seguir sistema" a tema real de tercer color; el default invisible del primer
+  visitante sigue siendo `prefers-color-scheme`.
 
 **Verificación (2026-09-22):**
 - `node --check js/main.js` → OK, exit 0.
@@ -88,3 +96,5 @@ en rama `feat/theme-mode`. Push/merge/PR: decisión del usuario.
 | T1 | inline | orquestación (doc de feature) |
 | T2–T4 | delegated direct (`general`) | Writer trigger: 2+ archivos no triviales (`index.html`, `css/global.css`, `js/main.js`) |
 | T5 | inline | estado/bash + commit |
+| T6 | delegated direct (`general`) | Writer trigger: 2+ archivos no triviales (`index.html`, `css/global.css`, `js/main.js`) |
+| T7 | inline | estado/bash + commit |

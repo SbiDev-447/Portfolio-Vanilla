@@ -84,10 +84,12 @@ document.addEventListener("DOMContentLoaded", () => {
               Selector de tema (claro / oscuro / visual).
 Botón fijo en la esquina superior derecha (index.html) con menú
 desplegable. Persistencia en localStorage["theme"]:
-  - "light" / "dark"  → elección explícita del usuario (sobreescribe
-    la preferencia del sistema).
-  - "visual" o vacío  → seguir la preferencia del sistema; "visual"
-    es un valor reservado (se implementa en un cambio futuro).
+  - "light" / "dark" / "visual" → elección explícita del usuario
+    (sobreescribe la preferencia del sistema). "visual" es un TERCER
+    tema real: fondo beige #e9d5a8 con paleta Gruvbox retro.
+  - Sin preferencia guardada → seguir la preferencia del sistema
+    operativo. No existe un valor "seguir sistema" en el menú: el
+    seguimiento solo aplica cuando no hay elección guardada.
 El script inline en el <head> ya aplica data-theme en el primer paint
 para evitar el flash; aquí solo se sincroniza el estado del menú y la
 interacción.
@@ -104,9 +106,10 @@ function readStoredTheme() {
 }
 
 function resolveTheme(choice) {
-  if (choice === "dark") return "dark";
-  if (choice === "light") return "light";
-  // "visual" o sin preferencia guardada → seguir al sistema operativo.
+  if (choice === "dark" || choice === "light" || choice === "visual") {
+    return choice;
+  }
+  // Sin preferencia guardada → seguir al sistema operativo.
   return window.matchMedia("(prefers-color-scheme: dark)").matches
     ? "dark"
     : "light";

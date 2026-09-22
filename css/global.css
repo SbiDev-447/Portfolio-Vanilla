@@ -100,6 +100,23 @@
 }
 
 /* ==================================================================
+   Visual mode — tema beige que cuida la vista (Gruvbox retro)
+   Fondo cálido #e9d5a8, tinta #3c3836, acentos Gruvbox. El .end se
+   queda oscuro (como en claro) y el polaroid conserva marco blanco
+   con sombra negra visible sobre el beige.
+   ================================================================== */
+[data-theme="visual"] {
+  color-scheme: light;
+  --green: #689d6a;
+  --orange: #d65d0e;
+  --cream: #e9d5a8;
+  --ink: #3c3836;
+  --grid-color: rgb(60 56 54 / 0.12);
+  --hover-bg: #3c3836;
+  --hover-color: #e9d5a8;
+}
+
+/* ==================================================================
    Reset
    ================================================================== */
 * {
