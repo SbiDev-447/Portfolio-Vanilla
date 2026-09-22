@@ -89,8 +89,12 @@ en rama `feat/visual-theme`. Push/merge: decisión del usuario.
 - T8 (repasada cards/píldoras): ✅ aprobada por el usuario (fix completo
   token-based) — `--btn-shadow` tokenizado por tema (en dark pasa de negro a
   glow claro), `--steel-blue: #83a598` (Gruvbox) en visual para glow de cards
-  y borde de imágenes, chip blanco en `.stack-pills img` (content-box para no
-  encoger logos). Tema claro sin cambios visuales. Commit: `c3313a5`.
+  y borde de imágenes. Tema claro sin cambios visuales. Commit: `c3313a5`.
+- T8-fix (feedback del usuario "borde blanco raro"): ✅ el chip blanco en
+  píldoras se revirtió — los shields.io ya traen su propio fondo; un marco
+  blanco encima se veía raro. En su lugar, en dark un ring sutil
+  (`box-shadow 0 0 0 1px rgb(243 246 249 / 0.12)`) delimita los badges oscuros
+  (Express, GitHub…) sin caja blanca. Commit: `573294c`.
 
 **Verificación (2026-09-22):**
 - `node --check js/main.js` → OK, exit 0.
