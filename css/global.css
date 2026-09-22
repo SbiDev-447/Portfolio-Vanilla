@@ -1,6 +1,4 @@
-/* ==================================================================
-   Fuentes
-   ================================================================== */
+/* === Fuentes === */
 @font-face {
   font-family: "determination";
   src:
@@ -34,13 +32,10 @@
   font-display: swap;
 }
 
-/* ==================================================================
-   Custom Properties (Design Tokens)
-   ================================================================== */
+/* === Custom Properties (Design Tokens) === */
 :root {
   color-scheme: light; /* claro por defecto; [data-theme="dark"] lo invierte */
 
-  /* --- Colores --- */
   --green: #6e915f;
   --steel-blue: #6693bf;
   --cyan-soft: #d7e3d8;
@@ -50,8 +45,9 @@
   --ink: #545464;
   --grid-color: rgb(84 84 100 / 0.18);
   --grid-size: 50px;
+  --surface-glass: color-mix(in srgb, var(--cream) 92%, transparent);
 
-  /* --- Hover y cierre de página (se invierten en dark) --- */
+  /* Hover y cierre de página: se invierten en dark */
   --hover-bg: #000;
   --hover-color: #fff;
   --btn-shadow: 0 0 14px rgb(0 0 0 / 0.35);
@@ -59,29 +55,25 @@
   --end-grid-line: rgb(106 192 181 / 0.18);
   --end-title-color: var(--cyan-soft);
 
-  /* --- Polaroid: el marco de la foto queda SIEMPRE blanco --- */
+  /* Polaroid: el marco de la foto queda SIEMPRE blanco */
   --polaroid-bg: #fdfefe;
   --polaroid-shadow:
     0 12px 24px rgb(0 0 0 / 0.25),
     0 4px 8px rgb(0 0 0 / 0.15);
 
-  /* --- Tipografia --- */
   --font-body: Helvetica, sans-serif;
   --font-display: "IosevkaTerm Nerd Font";
   --font-title: determination;
 
-  /* --- Medidas --- */
   --nav-height: 80px;
   --photo-size: 150px;
   --container-width: 1200px;
   --section-gap: 70px; /* separación vertical uniforme entre secciones */
 }
 
-/* ==================================================================
-   Dark mode — override de design tokens
+/* === Dark mode — override de design tokens ===
    Se activa con data-theme="dark" en <html> (script inline en head).
-   Casi todo el layout usa var(), así que redefinir los tokens basta.
-   ================================================================== */
+   Casi todo el layout usa var(): redefinir los tokens basta. */
 [data-theme="dark"] {
   color-scheme: dark;
   --green: #b7cc85;
@@ -101,12 +93,9 @@
     0 4px 8px rgb(243 246 249 / 0.08);
 }
 
-/* ==================================================================
-   Visual mode — tema beige que cuida la vista (Gruvbox retro)
-   Fondo cálido #e9d5a8, tinta #3c3836, acentos Gruvbox. El .end se
-   queda oscuro (como en claro) y el polaroid conserva marco blanco
-   con sombra negra visible sobre el beige.
-   ================================================================== */
+/* === Visual mode ===
+   Tema beige Gruvbox (fondo #e9d5a8, tinta #3c3836); el .end sigue
+   oscuro y el polaroid conserva marco blanco. */
 [data-theme="visual"] {
   color-scheme: light;
   --green: #689d6a;
@@ -116,15 +105,12 @@
   --grid-color: rgb(60 56 54 / 0.12);
   --hover-bg: #3c3836;
   --hover-color: #e9d5a8;
-  /* Azul Gruvbox desaturado: sustituye al azul acero frío para que el
-     glow de las cards y el borde de las imágenes calcen con el beige. */
+  /* Azul Gruvbox desaturado: glow de cards y bordes de imagen calzan con el beige */
   --steel-blue: #83a598;
   --btn-shadow: 0 0 14px rgb(0 0 0 / 0.35);
 }
 
-/* ==================================================================
-   Reset
-   ================================================================== */
+/* === Reset === */
 * {
   margin: 0;
   padding: 0;
@@ -150,24 +136,19 @@ body {
   background-image:
     linear-gradient(var(--grid-color) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-  background-size: var(--grid-size) var(--grid-size); /* Tamaño de cada celda */
+  background-size: var(--grid-size) var(--grid-size);
   transition: background-color 0.25s ease;
 }
 
-/* ==================================================================
-   Layout general: caja contenedora centrada
-   ==================================================================
-   Todo el contenido vive dentro de .container: una columna con ancho
-   máximo fijo centrada con márgenes automáticos. Cada sección interna
-   conserva su propio padding, pero TODAS comparten el mismo ancho de
-   contenido y el mismo centro horizontal en pantallas de escritorio.
-   ================================================================== */
+/* === Layout general: caja contenedora centrada ===
+   Columna de ancho máximo centrada con márgenes automáticos: todas
+   las secciones comparten el mismo centro horizontal en escritorio. */
 .container {
   max-width: var(--container-width);
   margin-inline: auto;
 }
 
-/* =============== Nav =============== */
+/* === Nav === */
 nav {
   display: flex;
   align-items: center;
@@ -179,7 +160,7 @@ nav {
   margin: 10px auto 0;
   padding: 8px;
   border-radius: 50px;
-  background: color-mix(in srgb, var(--cream) 92%, transparent);
+  background: var(--surface-glass);
   border: 1px solid color-mix(in srgb, var(--green) 40%, transparent);
   box-shadow: 0 4px 18px rgb(0 0 0 / 0.12);
   backdrop-filter: blur(8px);
@@ -227,7 +208,7 @@ nav {
   }
 }
 
-/* =============== Hero =============== */
+/* === Hero === */
 header {
   display: flex;
   flex-flow: row wrap;
@@ -354,13 +335,13 @@ header {
   }
 }
 
-/* =============== Layout del main =============== */
+/* === Layout del main === */
 main {
   display: block;
   padding: 0 150px 50px;
 }
 
-/* =============== Títulos de sección =============== */
+/* === Títulos de sección === */
 /* Base compartida: hover solo en el texto + underline L→R */
 .skills-title,
 .stack-title,
@@ -396,7 +377,7 @@ main {
   transform: scaleX(1);
 }
 
-/* =============== Proyectos =============== */
+/* === Proyectos === */
 .projects {
   margin-bottom: var(--section-gap);
 
@@ -408,7 +389,7 @@ main {
 
   .project-card {
     display: grid;
-    /* Opción A: la imagen es un banner full-width arriba */
+    /* La imagen es un banner full-width arriba */
     grid-template-areas:
       "image"
       "title"
@@ -503,7 +484,7 @@ main {
   }
 }
 
-/* =============== Skills =============== */
+/* === Skills === */
 .skills {
   margin-bottom: var(--section-gap);
 
@@ -542,7 +523,7 @@ main {
   }
 }
 
-/* =============== Stack =============== */
+/* === Stack === */
 .stack {
   margin-bottom: var(--section-gap);
 
@@ -596,7 +577,7 @@ main {
   box-shadow: 0 0 0 1px rgb(243 246 249 / 0.12);
 }
 
-/* =============== Sobre mí =============== */
+/* === Sobre mí === */
 footer {
   display: flex;
   flex-flow: column wrap;
@@ -650,7 +631,7 @@ footer {
   }
 }
 
-/* =============== End (cierre de página) =============== */
+/* === End (cierre de página) === */
 .end {
   background-color: var(--end-bg);
   background-image:
@@ -689,14 +670,12 @@ footer {
   }
 }
 
-/* =============== Theme Toggle (esquina superior derecha) =============== */
+/* === Theme Toggle (esquina superior derecha) === */
 .theme-toggle {
   position: fixed;
-  /* Centrado vertical contra la pill del nav: borde superior 10px
-     (sticky; el margen no suma al offset) + alto ~58px → centro ~39px;
-     menos la mitad del botón (22px) = 17px. Ajustado a 23px tras
-     feedback visual del usuario (el centro real queda ~45px). En los
-     breakpoints móviles se reajusta porque la pill baja de alto. */
+  /* Centrado vertical contra la pill del nav (ajustado tras feedback
+     visual del usuario); en móviles se reajusta porque la pill baja
+     de alto. */
   top: 21px;
   /* Anclado al borde derecho de la columna de contenido cuando hay
      espacio (≥1200px): participa del layout en vez de flotar suelto.
@@ -713,7 +692,7 @@ footer {
   height: 44px;
   border-radius: 50%;
   border: 1px solid color-mix(in srgb, var(--green) 40%, transparent);
-  background: color-mix(in srgb, var(--cream) 92%, transparent);
+  background: var(--surface-glass);
   box-shadow: 0 4px 18px rgb(0 0 0 / 0.12);
   backdrop-filter: blur(8px);
   color: var(--ink);
@@ -830,10 +809,8 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
   opacity: 0.75;
 }
 
-/* ==================================================================
-   Accesibilidad e interacción — skip-link, scroll-reveal,
-   prefers-reduced-motion
-   ================================================================== */
+/* === Accesibilidad e interacción ===
+   Skip-link, scroll-reveal y prefers-reduced-motion. */
 
 /* Skip-link: fuera de pantalla, visible solo al recibir foco. */
 .skip-link {
@@ -908,24 +885,11 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
   }
 }
 
-/* ==================================================================
-   Media Queries — Responsive
-   ==================================================================
-   Estrategia: desktop-first. El CSS base está pensado para escritorio;
-   estos bloques con `max-width` ajustan el layout cuando la pantalla
-   se encoge por debajo de cada breakpoint.
+/* === Media Queries — Responsive ===
+   Desktop-first: los bloques con max-width ajustan el layout al encoger.
+   IMPORTANTE: van al final para que la cascada gane a la base con igual especificidad. */
 
-   IMPORTANTE: van AL FINAL del archivo para que, con la misma
-   especificidad, la cascada haga que estos valores ganen a los base.
-
-   Breapoints elegidos:
-   · ≤ 1024px — tablets / laptops pequeños: se recortan los márgenes.
-   · ≤ 768px  — tablets en vertical / móviles grandes: tipografía menor,
-                Sobre mí pasa de 2 columnas a 1.
-   · ≤ 480px  — móviles pequeños: nav y texto en escala mínima.
-   ================================================================== */
-
-/* ---------- ≤ 1024px (tablets y laptops pequeños) ---------- */
+/* --- ≤1024 --- */
 @media (max-width: 1024px) {
   header {
     padding: 40px 40px 5px;
@@ -944,7 +908,7 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
   }
 }
 
-/* ---------- ≤ 768px (tablets verticales y móviles grandes) ---------- */
+/* --- ≤768 --- */
 @media (max-width: 768px) {
   nav {
     display: grid; /* una sola fila aunque la pantalla sea angosta */
@@ -968,7 +932,7 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
   }
 
   header {
-    flex-direction: column; /* foto arriba, texto abajo */
+    flex-direction: column;
     padding: 35px 20px 5px;
     gap: 25px;
     margin-bottom: var(--section-gap);
@@ -1038,7 +1002,6 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
     }
   }
 
-  /* Card de proyecto: de 2 columnas a 1 (imagen arriba) */
   .projects .project-card {
     grid-template-areas:
       "image"
@@ -1054,7 +1017,7 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
   }
 }
 
-/* ---------- ≤ 480px (móviles pequeños) ---------- */
+/* --- ≤480 --- */
 @media (max-width: 480px) {
   :root {
     /* Se sobreescribe un design token: hereda en todos los usos */
