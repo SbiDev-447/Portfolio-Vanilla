@@ -86,6 +86,8 @@ slice único, un solo commit work-unit.
 
 **Commit Slice 2:** `25d1de1` `feat: add Visual theme (gruvbox beige) as real third theme`
 en rama `feat/visual-theme`. Push/merge: decisión del usuario.
+- Merge ✅: `feat/visual-theme` fast-forward sobre `main` (155e8a5..6316fe0,
+  6 commits, +81/−18), 2026-09-22. Pendiente: push a origin (decisión del usuario).
 - T8 (repasada cards/píldoras): ✅ aprobada por el usuario (fix completo
   token-based) — `--btn-shadow` tokenizado por tema (en dark pasa de negro a
   glow claro), `--steel-blue: #83a598` (Gruvbox) en visual para glow de cards
