@@ -1,15 +1,8 @@
-/* ==================================================================
-                  Render de la sección "Proyectos".
-Lee el array `projects` (definido en js/projects.js, cargado antes) 
-y construye las cards dentro de .projects-grid. 
-================================================================== */
+/* ============ Módulo: Proyectos ============
+   Render de las cards en .projects-grid a partir del array `projects`
+   (definido en js/projects.js, cargado antes). */
 
-// ==================================================================
-// Utilidades
-// ==================================================================
-
-// Crea un <svg><use href="#..."></use></svg> que referencia un sprite
-// <symbol> definido en index.html.
+// Crea un <svg><use> contra el sprite <symbol> de index.html.
 function createIcon(symbolId) {
   const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   icon.setAttribute("viewBox", "0 0 24 24");
@@ -20,85 +13,10 @@ function createIcon(symbolId) {
   return icon;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const grid = document.querySelector(".projects-grid");
-
-  // Sin grilla en el documento: no hay nada que renderizar.
-  if (!grid) return;
-
-  for (const project of projects) {
-    // Card incompleta (sin imagen o sin repo): se omite para evitar
-    // un <img> roto o un enlace vacío.
-    if (!project.image || !project.repo) continue;
-
-    const card = document.createElement("article");
-    card.className = "project-card";
-
-    // Imagen
-    const img = document.createElement("img");
-    img.className = "project-image";
-    img.src = project.image;
-    img.alt = project.title;
-
-    // Título
-    const title = document.createElement("h3");
-    title.className = "project-title";
-    title.textContent = project.title;
-
-    // Descripción
-    const description = document.createElement("p");
-    description.className = "project-description";
-    description.textContent = project.description;
-
-    // Botones: Repo siempre; Demo sólo si el proyecto la declara
-    // (nada de href vacío ni botón fantasma).
-    const buttons = document.createElement("div");
-    buttons.className = "project-buttons";
-
-    const btnRepo = document.createElement("a");
-    btnRepo.className = "project-btn";
-    btnRepo.href = project.repo;
-    btnRepo.target = "_blank";
-    btnRepo.rel = "noopener noreferrer";
-    btnRepo.textContent = "Repo";
-    btnRepo.prepend(createIcon("#icon-github"));
-    buttons.appendChild(btnRepo);
-
-    if (project.demo) {
-      const btnDemo = document.createElement("a");
-      btnDemo.className = "project-btn";
-      btnDemo.href = project.demo;
-      btnDemo.target = "_blank";
-      btnDemo.rel = "noopener noreferrer";
-      btnDemo.textContent = "Demo";
-      btnDemo.prepend(createIcon("#icon-link"));
-      buttons.appendChild(btnDemo);
-    }
-
-    card.classList.add("reveal"); // entra con el scroll-reveal
-    card.append(img, title, description, buttons);
-    grid.appendChild(card);
-    registerReveal(card);
-  }
-
-  // Observa también los .reveal estáticos (títulos, skills, stack…).
-  initReveal();
-});
-
-/* ==================================================================
-              Selector de tema (claro / oscuro / visual).
-Botón fijo en la esquina superior derecha (index.html) con menú
-desplegable. Persistencia en localStorage["theme"]:
-  - "light" / "dark" / "visual" → elección explícita del usuario
-    (sobreescribe la preferencia del sistema). "visual" es un TERCER
-    tema real: fondo beige #e9d5a8 con paleta Gruvbox retro.
-  - Sin preferencia guardada → seguir la preferencia del sistema
-    operativo. No existe un valor "seguir sistema" en el menú: el
-    seguimiento solo aplica cuando no hay elección guardada.
-El script inline en el <head> ya aplica data-theme en el primer paint
-para evitar el flash; aquí solo se sincroniza el estado del menú y la
-interacción.
-================================================================== */
+/* ============ Módulo: Tema ============
+   localStorage["theme"]: "light"/"dark"/"visual" (tema real); sin
+   preferencia → seguir al sistema. El script inline del head evita el
+   flash; aquí solo sincronización e interacción. */
 
 const THEME_KEY = "theme";
 
@@ -108,11 +26,6 @@ const THEME_COLORS = {
   dark: "#06080f",
   visual: "#e9d5a8",
 };
-
-function applyThemeColor(theme) {
-  const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta && THEME_COLORS[theme]) meta.setAttribute("content", THEME_COLORS[theme]);
-}
 
 function readStoredTheme() {
   try {
@@ -143,64 +56,14 @@ function syncMenuState(choice) {
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const toggle = document.getElementById("theme-toggle");
-  if (!toggle) return;
+function applyThemeColor(theme) {
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta && THEME_COLORS[theme]) meta.setAttribute("content", THEME_COLORS[theme]);
+}
 
-  const btn = toggle.querySelector(".theme-toggle__btn");
-  const menu = document.getElementById("theme-menu");
-
-  function closeMenu(returnFocus = false) {
-    toggle.classList.remove("is-open");
-    btn.setAttribute("aria-expanded", "false");
-    if (returnFocus) btn.focus();
-  }
-
-  function selectTheme(choice) {
-    try {
-      localStorage.setItem(THEME_KEY, choice);
-    } catch (_) {}
-    document.documentElement.setAttribute("data-theme", resolveTheme(choice));
-    applyThemeColor(resolveTheme(choice));
-    syncMenuState(choice);
-    closeMenu();
-  }
-
-  btn.addEventListener("click", () => {
-    const open = toggle.classList.toggle("is-open");
-    btn.setAttribute("aria-expanded", String(open));
-  });
-
-  // Cerrar al hacer click fuera del widget.
-  document.addEventListener("click", (event) => {
-    if (!toggle.contains(event.target)) closeMenu();
-  });
-
-  // Cerrar con Escape y devolver el foco al botón.
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && toggle.classList.contains("is-open")) {
-      closeMenu(true);
-    }
-  });
-
-  menu.addEventListener("click", (event) => {
-    const item = event.target.closest(".theme-menu__item");
-    if (!item || item.disabled) return;
-    selectTheme(item.dataset.themeChoice);
-  });
-
-  // Estado inicial: la elección guardada (o el sistema).
-  syncMenuState(readStoredTheme());
-  // theme-color acorde al tema realmente aplicado.
-  applyThemeColor(resolveTheme(readStoredTheme()));
-});
-
-/* ==================================================================
-              Scrollspy: resalta en la nav la sección visible.
-IntersectionObserver sobre las secciones referenciadas por .nav-item
-(#inicio, #proyectos, #skills, #stack, #sobremi). La banda central
-definida por rootMargin decide cuál gana: exactamente una activa.
-================================================================== */
+/* ============ Módulo: Scrollspy ============
+   Resalta en la nav la sección visible: la banda central del rootMargin
+   decide cuál gana (exactamente una activa). */
 function initScrollspy() {
   if (!("IntersectionObserver" in window)) return;
 
@@ -253,13 +116,10 @@ function initScrollspy() {
   }
 }
 
-/* ==================================================================
-          Scroll-reveal: fade+slide de entrada con un observer único.
-Solo pinta con html.js (guard anti-FOUC del script inline del head);
-con prefers-reduced-motion el CSS los deja visibles al instante.
-El observador se reutiliza para las cards que renderiza el módulo
-de proyectos vía registerReveal().
-================================================================== */
+/* ============ Módulo: Reveal ============
+   Fade+slide con un observer único, reutilizado por registerReveal para
+   las cards dinámicas. Solo pinta con html.js (guard anti-FOUC del head);
+   con prefers-reduced-motion el CSS los deja visibles al instante. */
 let revealObserver = null;
 
 function initReveal() {
@@ -283,7 +143,118 @@ function registerReveal(el) {
   if (revealObserver) revealObserver.observe(el);
 }
 
+/* ============ Bootstrap ============
+   Un único listener: proyectos → scrollspy → reveal → tema. */
 document.addEventListener("DOMContentLoaded", () => {
+  const grid = document.querySelector(".projects-grid");
+
+  // Sin grilla en el documento: se omite SOLO el render de proyectos;
+  // scrollspy, reveal y tema siguen inicializándose igual que antes.
+  if (grid) {
+    for (const project of projects) {
+      // Card incompleta (sin imagen o sin repo): se omite para evitar
+      // un <img> roto o un enlace vacío.
+      if (!project.image || !project.repo) continue;
+
+      const card = document.createElement("article");
+      card.className = "project-card";
+
+      const img = document.createElement("img");
+      img.className = "project-image";
+      img.src = project.image;
+      img.alt = project.title;
+
+      const title = document.createElement("h3");
+      title.className = "project-title";
+      title.textContent = project.title;
+
+      const description = document.createElement("p");
+      description.className = "project-description";
+      description.textContent = project.description;
+
+      // Botones: Repo siempre; Demo solo si la declara (sin href vacío).
+      const buttons = document.createElement("div");
+      buttons.className = "project-buttons";
+
+      const btnRepo = document.createElement("a");
+      btnRepo.className = "project-btn";
+      btnRepo.href = project.repo;
+      btnRepo.target = "_blank";
+      btnRepo.rel = "noopener noreferrer";
+      btnRepo.textContent = "Repo";
+      btnRepo.prepend(createIcon("#icon-github"));
+      buttons.appendChild(btnRepo);
+
+      if (project.demo) {
+        const btnDemo = document.createElement("a");
+        btnDemo.className = "project-btn";
+        btnDemo.href = project.demo;
+        btnDemo.target = "_blank";
+        btnDemo.rel = "noopener noreferrer";
+        btnDemo.textContent = "Demo";
+        btnDemo.prepend(createIcon("#icon-link"));
+        buttons.appendChild(btnDemo);
+      }
+
+      card.classList.add("reveal"); // entra con el scroll-reveal
+      card.append(img, title, description, buttons);
+      grid.appendChild(card);
+      registerReveal(card);
+    }
+  }
+
   initScrollspy();
+
+  // Observa también los .reveal estáticos (títulos, skills, stack…).
   initReveal();
+
+  const toggle = document.getElementById("theme-toggle");
+  if (!toggle) return;
+
+  const btn = toggle.querySelector(".theme-toggle__btn");
+  const menu = document.getElementById("theme-menu");
+
+  function closeMenu(returnFocus = false) {
+    toggle.classList.remove("is-open");
+    btn.setAttribute("aria-expanded", "false");
+    if (returnFocus) btn.focus();
+  }
+
+  function selectTheme(choice) {
+    try {
+      localStorage.setItem(THEME_KEY, choice);
+    } catch (_) {}
+    document.documentElement.setAttribute("data-theme", resolveTheme(choice));
+    applyThemeColor(resolveTheme(choice));
+    syncMenuState(choice);
+    closeMenu();
+  }
+
+  btn.addEventListener("click", () => {
+    const open = toggle.classList.toggle("is-open");
+    btn.setAttribute("aria-expanded", String(open));
+  });
+
+  // Cerrar al hacer click fuera del widget.
+  document.addEventListener("click", (event) => {
+    if (!toggle.contains(event.target)) closeMenu();
+  });
+
+  // Cerrar con Escape y devolver el foco al botón.
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && toggle.classList.contains("is-open")) {
+      closeMenu(true);
+    }
+  });
+
+  menu.addEventListener("click", (event) => {
+    const item = event.target.closest(".theme-menu__item");
+    if (!item || item.disabled) return;
+    selectTheme(item.dataset.themeChoice);
+  });
+
+  // Estado inicial: la elección guardada (o el sistema).
+  syncMenuState(readStoredTheme());
+  // theme-color acorde al tema realmente aplicado.
+  applyThemeColor(resolveTheme(readStoredTheme()));
 });
