@@ -60,6 +60,9 @@
 
   /* --- Polaroid: el marco de la foto queda SIEMPRE blanco --- */
   --polaroid-bg: #fdfefe;
+  --polaroid-shadow:
+    0 12px 24px rgb(0 0 0 / 0.25),
+    0 4px 8px rgb(0 0 0 / 0.15);
 
   /* --- Tipografia --- */
   --font-body: Helvetica, sans-serif;
@@ -90,6 +93,10 @@
   --end-bg: #fdfefe;
   --end-grid-line: rgb(6 8 15 / 0.1);
   --end-title-color: #06080f;
+  /* Sombra del polaroid: negro invisible sobre fondo oscuro → glow claro */
+  --polaroid-shadow:
+    0 12px 24px rgb(243 246 249 / 0.12),
+    0 4px 8px rgb(243 246 249 / 0.08);
 }
 
 /* ==================================================================
@@ -579,9 +586,7 @@ footer {
         padding: 14px 14px 50px;
         background: var(--polaroid-bg);
         border-radius: 6px;
-        box-shadow:
-          0 12px 24px rgb(0 0 0 / 0.25),
-          0 4px 8px rgb(0 0 0 / 0.15);
+        box-shadow: var(--polaroid-shadow);
       }
     }
   }

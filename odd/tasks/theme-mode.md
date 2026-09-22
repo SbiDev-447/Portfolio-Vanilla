@@ -67,6 +67,9 @@ slice único, un solo commit work-unit.
 - Post-review del usuario: ✅ marco polaroid (`sobremi-photo img`) siempre blanco —
   nuevo token `--polaroid-bg: #fdfefe` en ambos temas (antes heredaba `--cream` y se
   oscurecía en dark).
+- Post-review del usuario (2): ✅ sombra del polaroid visible en dark — token
+  `--polaroid-shadow`: negro en claro, glow claro (`rgb(243 246 249 / 0.12 / 0.08)`)
+  en dark (negro sobre fondo casi negro es invisible).
 
 **Verificación (2026-09-22):**
 - `node --check js/main.js` → OK, exit 0.
