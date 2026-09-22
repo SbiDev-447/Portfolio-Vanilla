@@ -915,12 +915,14 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
     gap: 4px;
     padding: 4px;
     /* Reserva 136px (12 margen + 44 botón + 12 respiro): con el nav
-       centrado, su borde derecho queda 12px antes del botón del tema. */
-    width: min(calc(100% - 136px), 520px);
+       centrado, su borde derecho queda 12px antes del botón del tema.
+       En ≤632 la pill pasa a anclarse a la izquierda (regla propia)
+       y este tope de 560px solo aplica en tablets 633-768. */
+    width: min(calc(100% - 136px), 560px);
 
     .nav-item {
-      font-size: clamp(12px, 2.4vw, 15px);
-      padding: 9px 6px;
+      font-size: clamp(13px, 2.6vw, 16px);
+      padding: 10px 10px;
       text-align: center;
     }
   }
@@ -1016,6 +1018,24 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
   }
 }
 
+/* --- ≤632: la pill se ancla a la izquierda ---
+   En este rango el nav estaba limitado por la reserva de 136px centrada:
+   a 390px quedaban celdas de ~34px y "Proyectos" no cabía ni a 10px.
+   La pill ocupa todo el ancho disponible (12px de margen izq + 12px de
+   respiro con el botón del tema a la derecha): ~86px reales de ancho
+   extra, sin tocar la estructura ni el botón flotante. */
+@media (max-width: 632px) {
+  nav {
+    width: calc(100% - 80px);
+    margin: 10px 0 0 12px;
+    gap: 3px;
+
+    .nav-item {
+      padding: 10px 8px;
+    }
+  }
+}
+
 /* --- ≤480 --- */
 @media (max-width: 480px) {
   :root {
@@ -1032,14 +1052,19 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
   nav {
     display: grid; /* una sola fila aunque la pantalla sea angosta */
     grid-template-columns: repeat(5, 1fr);
-    gap: 4px;
+    gap: 3px;
     padding: 4px;
-    /* Misma reserva 136px que en ≤768: 12px de respiro con el botón. */
-    width: min(calc(100% - 136px), 440px);
+    /* Hereda el anclaje izquierdo de ≤632 (width calc 100% - 80px,
+       margen 12px izq); la tipografía sigue siendo la variable crítica:
+       son 5 celdas unifila, y la mayor es "Proyectos" (4.5px por 1px de
+       font). Con este ancho entran 10px fluido desde ~380px; por debajo
+       (360 legacy) queda justa. */
+    width: calc(100% - 80px);
+    margin: 10px 0 0 12px;
 
     .nav-item {
       font-size: clamp(10px, 2.6vw, 13px);
-      padding: 9px 4px;
+      padding: 9px 5px;
       text-align: center;
     }
   }
