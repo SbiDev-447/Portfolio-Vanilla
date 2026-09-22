@@ -209,10 +209,21 @@ nav {
   }
 
   /* Estado activo del scrollspy: tinte verde sutil. La pill no lleva
-     borde, así que el anillo se emula con box-shadow inset. */
-  .nav-item.is-active {
+     borde, así que el anillo se emula con box-shadow inset. El texto
+     SIEMPRE es var(--ink): el :hover genérico pintaría letras claras
+     sobre el tinte (ilegible) o negras en modo oscuro. */
+  .nav-item.is-active,
+  .nav-item.is-active:hover {
+    color: var(--ink);
     background: color-mix(in srgb, var(--green) 14%, transparent);
     box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--green) 35%, transparent);
+  }
+
+  /* Al pasar el ratón por la pill activa solo se intensifica el tinte,
+     sin tocar la legibilidad del texto. */
+  .nav-item.is-active:hover {
+    background: color-mix(in srgb, var(--green) 22%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--green) 45%, transparent);
   }
 }
 
@@ -718,6 +729,13 @@ footer {
   color: var(--hover-color);
 }
 
+/* El icono SIGUE el color del hover (igual que hero-btn/project-btn):
+   con currentColor solo, el fill no acompañaba al fondo en todos los temas. */
+.theme-toggle__btn:hover .theme-toggle__icon,
+.theme-toggle__btn:focus-visible .theme-toggle__icon {
+  fill: var(--hover-color);
+}
+
 .theme-toggle__btn:focus-visible {
   outline: 2px solid var(--orange);
   outline-offset: 2px;
@@ -727,6 +745,7 @@ footer {
   width: 22px;
   height: 22px;
   fill: currentColor;
+  transition: fill 0.25s ease; /* espejo del transition de color del botón */
 }
 
 .theme-toggle__icon--moon {
