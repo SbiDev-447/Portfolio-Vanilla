@@ -74,10 +74,15 @@ slice único, un solo commit work-unit.
 - Post-review del usuario (2): ✅ sombra del polaroid visible en dark — token
   `--polaroid-shadow`: negro en claro, glow claro (`rgb(243 246 249 / 0.12 / 0.08)`)
   en dark (negro sobre fondo casi negro es invisible).
-- Slice 2 (tema Visual): en curso — usuario eligió fondo `#e9d5a8` + paleta Gruvbox
-  retro (tinta `#3c3836`, naranja `#d65d0e`, verde `#689d6a`). Motor: `"visual"` pasa
-  de "seguir sistema" a tema real de tercer color; el default invisible del primer
-  visitante sigue siendo `prefers-color-scheme`.
+- T6 (Slice 2, tema Visual): ✅ implementado (writer `general`, sesión
+  ses_f39052c18ffeHIaORYOwwB3aZd). Paleta elegida por el usuario: fondo `#e9d5a8`,
+  tinta `#3c3836`, naranja `#d65d0e`, verde `#689d6a`. Motor: `"visual"` es tema real;
+  el default del primer visitante sigue siendo `prefers-color-scheme`.
+- T7 (Slice 2): ✅ verificado — `node --check js/main.js` OK (writer + spot check),
+  gatekeeper PASS sin drift, `assess` medium/`under_budget` (64 líneas).
+
+**Commit Slice 2:** `25d1de1` `feat: add Visual theme (gruvbox beige) as real third theme`
+en rama `feat/visual-theme`. Push/merge: decisión del usuario.
 
 **Verificación (2026-09-22):**
 - `node --check js/main.js` → OK, exit 0.
