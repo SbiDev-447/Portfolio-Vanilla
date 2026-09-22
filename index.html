@@ -9,7 +9,23 @@
       content="Portafolio de Sebastian Briceño / SbiDev, desarrollador FullStack. Proyectos, contacto y más."
     />
     <meta name="author" content="Sebastian Briceño / SbiDev" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Sebastian Briceño - Desarrollador FullStack" />
+    <meta
+      property="og:description"
+      content="Portafolio de Sebastian Briceño / SbiDev, desarrollador FullStack. Proyectos, contacto y más."
+    />
+    <meta name="twitter:card" content="summary" />
+    <!-- TODO: og:url e og:image reales cuando el sitio tenga URL pública -->
+    <meta name="theme-color" content="#fdfefe" />
     <link rel="icon" href="./files/favicon.ico" type="image/x-icon" />
+    <!-- Shields lazy de img.shields.io: conexión precalentada -->
+    <link rel="preconnect" href="https://img.shields.io" />
+    <link rel="dns-prefetch" href="https://img.shields.io" />
+    <!-- Preload de las 3 fuentes locales que usa css/global.css -->
+    <link rel="preload" href="./fonts/determination.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./fonts/IosevkaTermNerdFont-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./fonts/Roboto-Condensed.woff2" as="font" type="font/woff2" crossorigin />
     <script>
       (function () {
         var stored = null;
@@ -23,6 +39,16 @@
               ? "dark"
               : "light";
         document.documentElement.setAttribute("data-theme", theme);
+        // theme-color del chrome del navegador: mismo mapeo que js/main.js.
+        var themeColorMeta = document.querySelector('meta[name="theme-color"]');
+        if (themeColorMeta) {
+          themeColorMeta.setAttribute(
+            "content",
+            theme === "visual" ? "#e9d5a8" : theme === "dark" ? "#06080f" : "#fdfefe"
+          );
+        }
+        // Guard del scroll-reveal: sin .js los contenidos quedan visibles.
+        document.documentElement.classList.add("js");
       })();
     </script>
     <link href="css/global.css" rel="stylesheet" />
@@ -31,6 +57,7 @@
   </head>
 
   <body>
+    <a class="skip-link" href="#main">Saltar al contenido</a>
     <!-- Selector de tema: botón fijo en la esquina superior derecha, separado de la nav -->
     <div class="theme-toggle" id="theme-toggle">
       <button
@@ -158,60 +185,60 @@
           </div>
         </div>
       </header>
-      <main>
+      <main id="main">
         <section class="projects" id="proyectos">
-          <h2 class="projects-title">⛩︎ Proyectos</h2>
+          <h2 class="projects-title reveal">⛩︎ Proyectos</h2>
           <div class="projects-grid"><!-- render JS --></div>
         </section>
         <section class="skills" id="skills">
-          <h2 class="skills-title">⚒︎ Skills</h2>
+          <h2 class="skills-title reveal">⚒︎ Skills</h2>
           <ul class="skills-list">
-            <li class="skills-item">
+            <li class="skills-item reveal">
               <span class="skills-icon">🏗️</span>
               Architecture Design
             </li>
-            <li class="skills-item">
+            <li class="skills-item reveal">
               <span class="skills-icon">✒︎</span>
               Experienced in Design and Development
             </li>
-            <li class="skills-item">
+            <li class="skills-item reveal">
               <span class="skills-icon">🤖</span>
               Using AGENTS LLM
             </li>
-            <li class="skills-item">
+            <li class="skills-item reveal">
               <span class="skills-icon">🎨</span>
               Product Design
             </li>
-            <li class="skills-item">
+            <li class="skills-item reveal">
               <span class="skills-icon">🌐</span>
               FullStack Development
             </li>
-            <li class="skills-item">
+            <li class="skills-item reveal">
               <span class="skills-icon">🗄️</span>
               Base de Datos
             </li>
-            <li class="skills-item">
+            <li class="skills-item reveal">
               <span class="skills-icon">⚡</span>
               Performance & Web Vitals (CLS · LCP · Lazy Loading)
             </li>
-            <li class="skills-item">
+            <li class="skills-item reveal">
               <span class="skills-icon">🧰</span>
               Web & CLI Tools
             </li>
-            <li class="skills-item">
+            <li class="skills-item reveal">
               <span class="skills-icon">🐧</span>
               Linux & Servidores
             </li>
-            <li class="skills-item">
+            <li class="skills-item reveal">
               <span class="skills-icon">📚</span>
               Self-taught & Continuous Learning
             </li>
           </ul>
         </section>
         <section class="stack" id="stack">
-          <h2 class="stack-title">⌨ Tech-Stack</h2>
+          <h2 class="stack-title reveal">⌨ Tech-Stack</h2>
           <div class="stack-grid">
-            <article class="stack-card">
+            <article class="stack-card reveal">
               <h3 class="stack-area">Frontend</h3>
               <div class="stack-pills">
                 <img
@@ -248,7 +275,7 @@
                 />
               </div>
             </article>
-            <article class="stack-card">
+            <article class="stack-card reveal">
               <h3 class="stack-area">Backend</h3>
               <div class="stack-pills">
                 <img
@@ -269,7 +296,7 @@
                 />
               </div>
             </article>
-            <article class="stack-card">
+            <article class="stack-card reveal">
               <h3 class="stack-area">IA y Agentes</h3>
               <div class="stack-pills">
                 <img
@@ -298,7 +325,7 @@
                 />
               </div>
             </article>
-            <article class="stack-card">
+            <article class="stack-card reveal">
               <h3 class="stack-area">Base de Datos</h3>
               <div class="stack-pills">
                 <img
@@ -311,7 +338,7 @@
                 />
               </div>
             </article>
-            <article class="stack-card">
+            <article class="stack-card reveal">
               <h3 class="stack-area">Editor y Terminal</h3>
               <div class="stack-pills">
                 <img
@@ -348,7 +375,7 @@
                 />
               </div>
             </article>
-            <article class="stack-card">
+            <article class="stack-card reveal">
               <h3 class="stack-area">Herramientas</h3>
               <div class="stack-pills">
                 <img
@@ -377,7 +404,7 @@
                 />
               </div>
             </article>
-            <article class="stack-card">
+            <article class="stack-card reveal">
               <h3 class="stack-area">O.S.</h3>
               <div class="stack-pills">
                 <img
@@ -412,7 +439,7 @@
       <footer id="sobremi">
         <section class="sobremi">
           <div class="sobremi-text">
-            <h2 class="sobremi-title">✪ Sobre mí</h2>
+            <h2 class="sobremi-title reveal">✪ Sobre mí</h2>
             <p class="sobremi-paragraph">
               Soy <strong class="sobremi-name">Sebastian Briceño</strong>,
               conocido en el mundo digital como
@@ -428,7 +455,7 @@
               con buena ingeniería.
             </p>
           </div>
-          <div class="sobremi-photo">
+          <div class="sobremi-photo reveal">
             <img
               src="./files/me-footer.webp"
               alt="Sebastian Briceño - SbiDev"

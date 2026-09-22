@@ -75,9 +75,14 @@ document.addEventListener("DOMContentLoaded", () => {
       buttons.appendChild(btnDemo);
     }
 
+    card.classList.add("reveal"); // entra con el scroll-reveal
     card.append(img, title, description, buttons);
     grid.appendChild(card);
+    registerReveal(card);
   }
+
+  // Observa también los .reveal estáticos (títulos, skills, stack…).
+  initReveal();
 });
 
 /* ==================================================================
@@ -96,6 +101,18 @@ interacción.
 ================================================================== */
 
 const THEME_KEY = "theme";
+
+// Mapeo tema → color del chrome del navegador (mismo que en el head).
+const THEME_COLORS = {
+  light: "#fdfefe",
+  dark: "#06080f",
+  visual: "#e9d5a8",
+};
+
+function applyThemeColor(theme) {
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta && THEME_COLORS[theme]) meta.setAttribute("content", THEME_COLORS[theme]);
+}
 
 function readStoredTheme() {
   try {
@@ -144,6 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem(THEME_KEY, choice);
     } catch (_) {}
     document.documentElement.setAttribute("data-theme", resolveTheme(choice));
+    applyThemeColor(resolveTheme(choice));
     syncMenuState(choice);
     closeMenu();
   }
@@ -173,4 +191,99 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Estado inicial: la elección guardada (o el sistema).
   syncMenuState(readStoredTheme());
+  // theme-color acorde al tema realmente aplicado.
+  applyThemeColor(resolveTheme(readStoredTheme()));
+});
+
+/* ==================================================================
+              Scrollspy: resalta en la nav la sección visible.
+IntersectionObserver sobre las secciones referenciadas por .nav-item
+(#inicio, #proyectos, #skills, #stack, #sobremi). La banda central
+definida por rootMargin decide cuál gana: exactamente una activa.
+================================================================== */
+function initScrollspy() {
+  if (!("IntersectionObserver" in window)) return;
+
+  const navItems = Array.from(document.querySelectorAll(".nav-item"));
+  if (!navItems.length) return;
+
+  // Mapa sección → item de la nav (los href="#..." apuntan a ids reales).
+  const sections = [];
+  const itemBySection = new Map();
+  for (const item of navItems) {
+    const href = item.getAttribute("href");
+    if (!href || !href.startsWith("#")) continue;
+    const section = document.getElementById(href.slice(1));
+    if (!section) continue;
+    sections.push(section);
+    itemBySection.set(section, item);
+  }
+  if (!sections.length) return;
+
+  function setActive(section) {
+    navItems.forEach((item) => {
+      const isActive = itemBySection.get(section) === item;
+      item.classList.toggle("is-active", isActive);
+      if (isActive) item.setAttribute("aria-current", "true");
+      else item.removeAttribute("aria-current");
+    });
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        setActive(entry.target);
+        break;
+      }
+    },
+    { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+  );
+
+  sections.forEach((section) => observer.observe(section));
+
+  // Estado inicial al cargar: la sección que ocupa la banda central.
+  const band = window.innerHeight * 0.425;
+  for (const section of sections) {
+    const rect = section.getBoundingClientRect();
+    if (rect.top <= band && rect.bottom > band) {
+      setActive(section);
+      break;
+    }
+  }
+}
+
+/* ==================================================================
+          Scroll-reveal: fade+slide de entrada con un observer único.
+Solo pinta con html.js (guard anti-FOUC del script inline del head);
+con prefers-reduced-motion el CSS los deja visibles al instante.
+El observador se reutiliza para las cards que renderiza el módulo
+de proyectos vía registerReveal().
+================================================================== */
+let revealObserver = null;
+
+function initReveal() {
+  if (revealObserver || !("IntersectionObserver" in window)) return;
+  revealObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add("is-visible");
+        revealObserver.unobserve(entry.target);
+      }
+    },
+    { threshold: 0.15 }
+  );
+  document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+}
+
+// Registra un elemento revelable creado dinámicamente (project-card).
+function registerReveal(el) {
+  if (!revealObserver) initReveal();
+  if (revealObserver) revealObserver.observe(el);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initScrollspy();
+  initReveal();
 });

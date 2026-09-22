@@ -202,6 +202,18 @@ nav {
     background: var(--hover-bg);
     color: var(--hover-color);
   }
+
+  .nav-item:focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 2px;
+  }
+
+  /* Estado activo del scrollspy: tinte verde sutil. La pill no lleva
+     borde, así que el anillo se emula con box-shadow inset. */
+  .nav-item.is-active {
+    background: color-mix(in srgb, var(--green) 14%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--green) 35%, transparent);
+  }
 }
 
 /* =============== Hero =============== */
@@ -473,6 +485,11 @@ main {
       fill: var(--hover-color); /* igual que el hero: icono con el color del hover */
     }
   }
+
+  .project-btn:focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 2px;
+  }
 }
 
 /* =============== Skills =============== */
@@ -695,9 +712,15 @@ footer {
     color 0.25s ease;
 }
 
-.theme-toggle__btn:hover {
+.theme-toggle__btn:hover,
+.theme-toggle__btn:focus-visible {
   background: var(--hover-bg);
   color: var(--hover-color);
+}
+
+.theme-toggle__btn:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
 }
 
 .theme-toggle__icon {
@@ -786,6 +809,84 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
 .theme-menu__soon {
   font-size: 12px;
   opacity: 0.75;
+}
+
+/* ==================================================================
+   Accesibilidad e interacción — skip-link, scroll-reveal,
+   prefers-reduced-motion
+   ================================================================== */
+
+/* Skip-link: fuera de pantalla, visible solo al recibir foco. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+
+.skip-link:focus {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 10001; /* por encima del theme-toggle (10000) */
+  background: var(--cream);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-family: var(--font-display);
+  font-size: 16px;
+  text-decoration: none;
+}
+
+/* Scroll-reveal: solo anima con JS activo (html.js). */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease,
+    box-shadow 0.3s ease; /* conserva el glow de hover de las cards */
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Tras revelar, el lift de hover de cards/skills/stack sigue vivo. */
+.js .project-card.reveal.is-visible:hover,
+.js .skills-item.reveal.is-visible:hover,
+.js .stack-card.reveal.is-visible:hover {
+  transform: translateY(-3px);
+}
+
+/* La polaroid de Sobre mí ya rota: el reveal compone la rotación
+   en vez de pisarla. */
+.js .sobremi-photo.reveal {
+  transform: translateY(14px) rotate(10deg);
+}
+
+.js .sobremi-photo.reveal.is-visible {
+  transform: rotate(10deg);
+}
+
+/* Sin animaciones ni scroll suave: todo visible al instante. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .js .sobremi-photo.reveal {
+    transform: rotate(10deg);
+  }
 }
 
 /* ==================================================================
@@ -901,6 +1002,11 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
     .sobremi-photo {
       transform: rotate(6deg);
     }
+  }
+
+  /* La tilt móvil (6deg) también gana sobre el reveal de la polaroid. */
+  .js .sobremi-photo.reveal.is-visible {
+    transform: rotate(6deg);
   }
 
   .end .end-logo {
