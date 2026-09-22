@@ -669,7 +669,7 @@ footer {
      menos la mitad del botón (22px) = 17px. Ajustado a 23px tras
      feedback visual del usuario (el centro real queda ~45px). En los
      breakpoints móviles se reajusta porque la pill baja de alto. */
-  top: 23px;
+  top: 21px;
   /* Anclado al borde derecho de la columna de contenido cuando hay
      espacio (≥1200px): participa del layout en vez de flotar suelto.
      En pantallas menores vuelve al margen fijo de 12px. */
@@ -842,9 +842,9 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
     }
   }
 
-  /* La pill móvil es más baja (~42px): centro ~31px → top del botón 15px */
+  /* La pill móvil es más baja (~42px): centro ~31px → top del botón 13px */
   .theme-toggle {
-    top: 15px;
+    top: 13px;
   }
 
   header {
@@ -937,9 +937,9 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
     --grid-size: 40px;
   }
 
-  /* Pill aún más baja (~40px): centro ~29px → top del botón 14px */
+  /* Pill aún más baja (~40px): centro ~29px → top del botón 12px */
   .theme-toggle {
-    top: 14px;
+    top: 12px;
   }
 
   nav {
