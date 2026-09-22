@@ -61,6 +61,9 @@ slice único, un solo commit work-unit.
       habilitar la opción Visual en el menú (quitar `disabled` y "(pronto)").
       _(delegated writer: general)_
 - [ ] **T7** — Slice 2: verificación + commit work-unit. _(inline, orchestrator)_
+- [ ] **T8** — Repasada hovers/colores en cards y píldoras: token `--btn-shadow`
+      por tema, `--steel-blue` Gruvbox (`#83a598`) en visual, chip blanco en
+      píldoras (`--polaroid-bg`). _(inline, orchestrator)_
 
 ## Progress
 
@@ -83,6 +86,11 @@ slice único, un solo commit work-unit.
 
 **Commit Slice 2:** `25d1de1` `feat: add Visual theme (gruvbox beige) as real third theme`
 en rama `feat/visual-theme`. Push/merge: decisión del usuario.
+- T8 (repasada cards/píldoras): ✅ aprobada por el usuario (fix completo
+  token-based) — `--btn-shadow` tokenizado por tema (en dark pasa de negro a
+  glow claro), `--steel-blue: #83a598` (Gruvbox) en visual para glow de cards
+  y borde de imágenes, chip blanco en `.stack-pills img` (content-box para no
+  encoger logos). Tema claro sin cambios visuales. Commit: `c3313a5`.
 
 **Verificación (2026-09-22):**
 - `node --check js/main.js` → OK, exit 0.
@@ -103,3 +111,4 @@ en rama `feat/theme-mode`. Push/merge/PR: decisión del usuario.
 | T5 | inline | estado/bash + commit |
 | T6 | delegated direct (`general`) | Writer trigger: 2+ archivos no triviales (`index.html`, `css/global.css`, `js/main.js`) |
 | T7 | inline | estado/bash + commit |
+| T8 | inline | 1 archivo mecánico (CSS) + aprobación explícita del usuario |
