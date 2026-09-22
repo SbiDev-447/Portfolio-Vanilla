@@ -60,7 +60,20 @@ slice único, un solo commit work-unit.
 
 ## Progress
 
-- T1: ✅ en curso.
+- T1: ✅ Feature doc + mirror de Engram.
+- T2–T4: ✅ Implementación delegada (`general`, sesión ses_f39262a4fffeS6kzH7HOmD6knm).
+  `node --check js/main.js` OK (writer + spot check del orquestador).
+- T5: ✅ Verificación y commit.
+
+**Verificación (2026-09-22):**
+- `node --check js/main.js` → OK, exit 0.
+- Gatekeeper ODD: PASS — sin drift, rutas reales, artefactos legibles.
+- `gentle-ai review assess` (RDD off, verificación delegada): `risk: medium`
+  (`executable_change` en css), `review_due_reason: under_budget` (314 líneas < 400).
+  Writer en modelo por defecto → self-verification suficiente, sin verifier extra.
+
+**Commit work-unit:** `9dd6ef7` `feat: add dark mode theme switcher` (4 archivos, +370/−15)
+en rama `feat/theme-mode`. Push/merge/PR: decisión del usuario.
 
 ## Route declaration
 
