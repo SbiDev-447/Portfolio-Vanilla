@@ -57,9 +57,7 @@
 
   /* Polaroid: el marco de la foto queda SIEMPRE blanco */
   --polaroid-bg: #fdfefe;
-  --polaroid-shadow:
-    0 12px 24px rgb(0 0 0 / 0.25),
-    0 4px 8px rgb(0 0 0 / 0.15);
+  --polaroid-shadow: 0 12px 24px rgb(0 0 0 / 0.25), 0 4px 8px rgb(0 0 0 / 0.15);
 
   --font-body: Helvetica, sans-serif;
   --font-display: "IosevkaTerm Nerd Font";
@@ -89,13 +87,10 @@
   --end-title-color: #06080f;
   /* Sombra del polaroid: negro invisible sobre fondo oscuro → glow claro */
   --polaroid-shadow:
-    0 12px 24px rgb(243 246 249 / 0.12),
-    0 4px 8px rgb(243 246 249 / 0.08);
+    0 12px 24px rgb(243 246 249 / 0.12), 0 4px 8px rgb(243 246 249 / 0.08);
 }
 
-/* === Visual mode ===
-   Tema beige Gruvbox (fondo #e9d5a8, tinta #3c3836); el .end sigue
-   oscuro y el polaroid conserva marco blanco. */
+/* === Visual mode === */
 [data-theme="visual"] {
   color-scheme: light;
   --green: #689d6a;
@@ -197,14 +192,16 @@ nav {
   .nav-item.is-active:hover {
     color: var(--ink);
     background: color-mix(in srgb, var(--green) 14%, transparent);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--green) 35%, transparent);
+    box-shadow: inset 0 0 0 1px
+      color-mix(in srgb, var(--green) 35%, transparent);
   }
 
   /* Al pasar el ratón por la pill activa solo se intensifica el tinte,
      sin tocar la legibilidad del texto. */
   .nav-item.is-active:hover {
     background: color-mix(in srgb, var(--green) 22%, transparent);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--green) 45%, transparent);
+    box-shadow: inset 0 0 0 1px
+      color-mix(in srgb, var(--green) 45%, transparent);
   }
 }
 
@@ -474,7 +471,9 @@ main {
     box-shadow: var(--btn-shadow);
 
     svg {
-      fill: var(--hover-color); /* igual que el hero: icono con el color del hover */
+      fill: var(
+        --hover-color
+      ); /* igual que el hero: icono con el color del hover */
     }
   }
 
