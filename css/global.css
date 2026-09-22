@@ -54,6 +54,7 @@
   /* --- Hover y cierre de página (se invierten en dark) --- */
   --hover-bg: #000;
   --hover-color: #fff;
+  --btn-shadow: 0 0 14px rgb(0 0 0 / 0.35);
   --end-bg: #06080f;
   --end-grid-line: rgb(106 192 181 / 0.18);
   --end-title-color: var(--cyan-soft);
@@ -90,6 +91,7 @@
   --grid-color: rgb(243 246 249 / 0.07);
   --hover-bg: #f3f6f9;
   --hover-color: #06080f;
+  --btn-shadow: 0 0 14px rgb(243 246 249 / 0.18);
   --end-bg: #fdfefe;
   --end-grid-line: rgb(6 8 15 / 0.1);
   --end-title-color: #06080f;
@@ -114,6 +116,10 @@
   --grid-color: rgb(60 56 54 / 0.12);
   --hover-bg: #3c3836;
   --hover-color: #e9d5a8;
+  /* Azul Gruvbox desaturado: sustituye al azul acero frío para que el
+     glow de las cards y el borde de las imágenes calcen con el beige. */
+  --steel-blue: #83a598;
+  --btn-shadow: 0 0 14px rgb(0 0 0 / 0.35);
 }
 
 /* ==================================================================
@@ -314,7 +320,7 @@ header {
     .hero-btn:hover {
       background: var(--hover-bg);
       color: var(--hover-color);
-      box-shadow: 0 0 14px rgb(0 0 0 / 0.35);
+      box-shadow: var(--btn-shadow);
     }
 
     .hero-btn:hover span,
@@ -461,7 +467,7 @@ main {
   .project-btn:hover {
     background: var(--hover-bg);
     color: var(--hover-color);
-    box-shadow: 0 0 14px rgb(0 0 0 / 0.35);
+    box-shadow: var(--btn-shadow);
 
     svg {
       fill: var(--hover-color); /* igual que el hero: icono con el color del hover */
@@ -549,8 +555,16 @@ main {
     gap: 8px;
 
     img {
+      /* Chip suave con fondo blanco (--polaroid-bg): los logos se ven
+         igual en claro, dark y visual; como el marco del polaroid, el
+         blanco es neutral sobre cualquier tema. box-sizing content-box
+         para que el logo conserve su alto sin que el chip lo encoja. */
       height: 28px;
-      border-radius: 6px;
+      box-sizing: content-box;
+      padding: 4px 6px;
+      border: 1px solid color-mix(in srgb, var(--green) 35%, transparent);
+      border-radius: 8px;
+      background: var(--polaroid-bg);
     }
   }
 }
