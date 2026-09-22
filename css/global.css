@@ -664,7 +664,11 @@ footer {
 /* =============== Theme Toggle (esquina superior derecha) =============== */
 .theme-toggle {
   position: fixed;
-  top: 12px;
+  /* Centrado vertical contra la pill del nav: borde superior 20px
+     (sticky 10px + margen 10px) + alto ~58px → centro ~49px; menos la
+     mitad del botón (22px) = 27px. En los breakpoints móviles se
+     reajusta porque la pill baja de alto. */
+  top: 27px;
   /* Anclado al borde derecho de la columna de contenido cuando hay
      espacio (≥1200px): participa del layout en vez de flotar suelto.
      En pantallas menores vuelve al margen fijo de 12px. */
@@ -837,6 +841,11 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
     }
   }
 
+  /* La pill móvil es más baja (~42px): centro ~41px → top del botón 19px */
+  .theme-toggle {
+    top: 19px;
+  }
+
   header {
     flex-direction: column; /* foto arriba, texto abajo */
     padding: 35px 20px 5px;
@@ -925,6 +934,11 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
     /* Se sobreescribe un design token: hereda en todos los usos */
     --photo-size: 120px;
     --grid-size: 40px;
+  }
+
+  /* Pill aún más baja (~40px): centro ~40px → top del botón 18px */
+  .theme-toggle {
+    top: 18px;
   }
 
   nav {

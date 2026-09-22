@@ -95,6 +95,11 @@ en rama `feat/visual-theme`. Push/merge: decisión del usuario.
   del botón en todo ≤632px (por construcción: 112 = 2×56). Fix: reserva 136px
   en ≤768 y ≤480 → gap fijo de 12px (verificado 768→68px, 632→12px, 320→12px);
   botón anclado al contenedor en desktop (`right: max(12px, calc((100vw - 1200px)/2 + 12px))`).
+- T9b (desalineación vertical nav↔botón) ✅: el botón flotaba ~7-15px más alto
+  que el centro de la pill (geometrías distintas: sticky 10+10 vs top 12, y altos
+  58 vs 44px). Botón centrado contra el centro de la pill: `top: 27px` desktop,
+  `19px` ≤768, `18px` ≤480. Ajuste fino visual puede mover ±1-2px si el
+  line-height de la fuente difiere del estimado.
 - T8 (repasada cards/píldoras): ✅ aprobada por el usuario (fix completo
   token-based) — `--btn-shadow` tokenizado por tema (en dark pasa de negro a
   glow claro), `--steel-blue: #83a598` (Gruvbox) en visual para glow de cards
