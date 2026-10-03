@@ -36,14 +36,6 @@ const projects = [
     // demo: sin demo por ahora (pendiente de publicar en el marketplace de Microsoft)
   },
   {
-    title: "TurtleGlassesNvim",
-    description:
-      "Tema de color para NeoVim, pensado para la comodidad visual. Inspirado en la calma de las tortugas y la claridad de unas buenas gafas.",
-    image: "./files/proyect-images/turtleglassesnvim.webp",
-    repo: "https://github.com/SbiDev-447/TurtleGlassesNvim",
-    // demo: sin demo por ahora (pendiente de publicar en el marketplace de Microsoft)
-  },
-  {
     title: "TurtleGlasses-GTK",
     description:
       "Tema GTK basado en TurtleGlassesVSCode Light que proporciona una interfaz calida y agradable a la vista.",
