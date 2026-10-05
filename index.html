@@ -10,14 +10,23 @@
     />
     <meta name="author" content="Sebastian Briceño / SbiDev" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Sebastian Briceño - Desarrollador FullStack" />
+    <meta
+      property="og:title"
+      content="Sebastian Briceño - Desarrollador FullStack"
+    />
     <meta
       property="og:description"
       content="Portafolio de Sebastian Briceño / SbiDev, desarrollador FullStack. Proyectos, contacto y más."
     />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta property="og:url" content="https://sbidev-447.github.io/Portfolio-Vanilla/" />
-    <meta property="og:image" content="https://sbidev-447.github.io/Portfolio-Vanilla/files/og-image.webp" />
+    <meta
+      property="og:url"
+      content="https://sbidev-447.github.io/Portfolio-Vanilla/"
+    />
+    <meta
+      property="og:image"
+      content="https://sbidev-447.github.io/Portfolio-Vanilla/files/og-image.webp"
+    />
     <meta property="og:image:width" content="1376" />
     <meta property="og:image:height" content="768" />
     <meta property="og:image:type" content="image/webp" />
@@ -27,9 +36,27 @@
     <link rel="preconnect" href="https://img.shields.io" />
     <link rel="dns-prefetch" href="https://img.shields.io" />
     <!-- Preload de las 3 fuentes locales que usa css/global.css -->
-    <link rel="preload" href="./fonts/determination.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="./fonts/IosevkaTermNerdFont-Regular.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="./fonts/Roboto-Condensed.woff2" as="font" type="font/woff2" crossorigin />
+    <link
+      rel="preload"
+      href="./fonts/determination.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="./fonts/IosevkaTermNerdFont-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="./fonts/Roboto-Condensed.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <script>
       (function () {
         var stored = null;
@@ -48,7 +75,11 @@
         if (themeColorMeta) {
           themeColorMeta.setAttribute(
             "content",
-            theme === "visual" ? "#e9d5a8" : theme === "dark" ? "#06080f" : "#fdfefe"
+            theme === "visual"
+              ? "#e9d5a8"
+              : theme === "dark"
+                ? "#06080f"
+                : "#fdfefe",
           );
         }
         // Guard del scroll-reveal: sin .js los contenidos quedan visibles.
@@ -73,22 +104,63 @@
         aria-label="Cambiar tema"
         title="Cambiar tema"
       >
-        <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z"/>
+        <svg
+          class="theme-toggle__icon theme-toggle__icon--sun"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z"
+          />
         </svg>
-        <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        <svg
+          class="theme-toggle__icon theme-toggle__icon--moon"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
       </button>
-      <ul class="theme-menu" id="theme-menu" role="menu" aria-label="Tema de la página">
+      <ul
+        class="theme-menu"
+        id="theme-menu"
+        role="menu"
+        aria-label="Tema de la página"
+      >
         <li role="none">
-          <button class="theme-menu__item" type="button" role="menuitemradio" data-theme-choice="light" aria-checked="false">Claro</button>
+          <button
+            class="theme-menu__item"
+            type="button"
+            role="menuitemradio"
+            data-theme-choice="light"
+            aria-checked="false"
+          >
+            Claro
+          </button>
         </li>
         <li role="none">
-          <button class="theme-menu__item" type="button" role="menuitemradio" data-theme-choice="dark" aria-checked="false">Oscuro</button>
+          <button
+            class="theme-menu__item"
+            type="button"
+            role="menuitemradio"
+            data-theme-choice="dark"
+            aria-checked="false"
+          >
+            Oscuro
+          </button>
         </li>
         <li role="none">
-          <button class="theme-menu__item" type="button" role="menuitemradio" data-theme-choice="visual" aria-checked="false">Visual</button>
+          <button
+            class="theme-menu__item"
+            type="button"
+            role="menuitemradio"
+            data-theme-choice="visual"
+            aria-checked="false"
+          >
+            Visual
+          </button>
         </li>
       </ul>
     </div>
@@ -333,6 +405,14 @@
                 <img
                   src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white"
                   alt="MySQL"
+                  width="88"
+                  height="28"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <img
+                  src="https://img.shields.io/badge/SQLite-003B57?logo=sqlite&logoColor=fff&style=for-the-badge"
+                  alt="SQLite"
                   width="88"
                   height="28"
                   loading="lazy"
