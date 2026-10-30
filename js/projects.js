@@ -21,6 +21,13 @@ const projects = [
     // demo: sin demo todavía — se omite la propiedad para que no se renderice el botón
   },
   {
+    title: "FulgenciaRegister-SPA",
+    description:
+      "SPA de registro e inscripción estudiantil para el Liceo Fulgencia Jiménez de Olmos. Interfaz en JavaScript vanilla sin recarga de página, API REST en Express y base de datos MariaDB en Docker.",
+    image: "./files/proyect-images/fulgencia.webp",
+    repo: "https://github.com/SbiDev-447/FulgenciaRegister-SPA",
+  },
+  {
     title: "Dotfiles-SbiDev",
     description:
       "Colección de dotfiles, configuraciones y scripts para el compositor Niri en Debian 13 Trixie: personalización de entorno, gestión de energía, lanzadores rápidos con Fuzzel, Neovim con LazyVim (basado en GentlemanDots) y utilidades CLI propias.",
@@ -38,7 +45,7 @@ const projects = [
   {
     title: "TurtleGlasses-GTK",
     description:
-      "Tema GTK basado en TurtleGlassesVSCode Light que proporciona una interfaz calida y agradable a la vista.",
+      "Tema GTK basado en TurtleGlassesVSCode Light y Dark que proporciona una interfaz calida y agradable a la vista o bien vibrante y unica.",
     image: "./files/proyect-images/turtleglassesgtk.webp",
     repo: "https://github.com/SbiDev-447/TurtleGlasses-GTK",
   },

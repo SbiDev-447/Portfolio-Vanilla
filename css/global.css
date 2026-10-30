@@ -659,6 +659,7 @@ footer {
       -moz-user-drag: none; /* Firefox antiguo */
       -o-user-drag: none; /* Opera antiguo */
       user-drag: none;
+      image-rendering: pixelated;
     }
 
     .end-title {
