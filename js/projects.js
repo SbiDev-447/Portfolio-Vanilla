@@ -28,6 +28,14 @@ const projects = [
     repo: "https://github.com/SbiDev-447/FulgenciaRegister-SPA",
   },
   {
+    title: "SbiRadio",
+    description:
+      "Landing de la Radio: SbiRadio. Emisora comunitaria y un reproductor web minimalista.",
+    image: "./files/proyect-images/SbiRadio.webp",
+    repo: "https://github.com/SbiDev-447/SbiRadio",
+    demo: "https://sbidev-447.github.io/SbiRadio/",
+  },
+  {
     title: "Dotfiles-SbiDev",
     description:
       "Colección de dotfiles, configuraciones y scripts para el compositor Niri en Debian 13 Trixie: personalización de entorno, gestión de energía, lanzadores rápidos con Fuzzel, Neovim con LazyVim (basado en GentlemanDots) y utilidades CLI propias.",
