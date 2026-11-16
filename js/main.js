@@ -1,18 +1,3 @@
-/* ============ Módulo: Proyectos ============
-   Render de las cards en .projects-grid a partir del array `projects`
-   (definido en js/projects.js, cargado antes). */
-
-// Crea un <svg><use> contra el sprite <symbol> de index.html.
-function createIcon(symbolId) {
-  const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  icon.setAttribute("viewBox", "0 0 24 24");
-  icon.setAttribute("aria-hidden", "true");
-  const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
-  use.setAttribute("href", symbolId);
-  icon.appendChild(use);
-  return icon;
-}
-
 /* ============ Módulo: Tema ============
    localStorage["theme"]: "light"/"dark"/"visual" (tema real); sin
    preferencia → seguir al sistema. El script inline del head evita el
@@ -117,9 +102,9 @@ function initScrollspy() {
 }
 
 /* ============ Módulo: Reveal ============
-   Fade+slide con un observer único, reutilizado por registerReveal para
-   las cards dinámicas. Solo pinta con html.js (guard anti-FOUC del head);
-   con prefers-reduced-motion el CSS los deja visibles al instante. */
+   Fade+slide con un observer único para todos los elementos .reveal.
+   Solo pinta con html.js (guard anti-FOUC del head); con
+   prefers-reduced-motion el CSS los deja visibles al instante. */
 let revealObserver = null;
 
 function initReveal() {
@@ -137,72 +122,11 @@ function initReveal() {
   document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
 }
 
-// Registra un elemento revelable creado dinámicamente (project-card).
-function registerReveal(el) {
-  if (!revealObserver) initReveal();
-  if (revealObserver) revealObserver.observe(el);
-}
-
 /* ============ Bootstrap ============
-   Un único listener: proyectos → scrollspy → reveal → tema. */
+   Una sola inicialización: scrollspy → reveal → tema. Las cards de
+   proyectos son HTML estático (indexables sin JS) y entran en el reveal
+   junto con el resto de elementos .reveal. */
 document.addEventListener("DOMContentLoaded", () => {
-  const grid = document.querySelector(".projects-grid");
-
-  // Sin grilla en el documento: se omite SOLO el render de proyectos;
-  // scrollspy, reveal y tema siguen inicializándose igual que antes.
-  if (grid) {
-    for (const project of projects) {
-      // Card incompleta (sin imagen o sin repo): se omite para evitar
-      // un <img> roto o un enlace vacío.
-      if (!project.image || !project.repo) continue;
-
-      const card = document.createElement("article");
-      card.className = "project-card";
-
-      const img = document.createElement("img");
-      img.className = "project-image";
-      img.src = project.image;
-      img.alt = project.title;
-
-      const title = document.createElement("h3");
-      title.className = "project-title";
-      title.textContent = project.title;
-
-      const description = document.createElement("p");
-      description.className = "project-description";
-      description.textContent = project.description;
-
-      // Botones: Repo siempre; Demo solo si la declara (sin href vacío).
-      const buttons = document.createElement("div");
-      buttons.className = "project-buttons";
-
-      const btnRepo = document.createElement("a");
-      btnRepo.className = "project-btn";
-      btnRepo.href = project.repo;
-      btnRepo.target = "_blank";
-      btnRepo.rel = "noopener noreferrer";
-      btnRepo.textContent = "Repo";
-      btnRepo.prepend(createIcon("#icon-github"));
-      buttons.appendChild(btnRepo);
-
-      if (project.demo) {
-        const btnDemo = document.createElement("a");
-        btnDemo.className = "project-btn";
-        btnDemo.href = project.demo;
-        btnDemo.target = "_blank";
-        btnDemo.rel = "noopener noreferrer";
-        btnDemo.textContent = "Demo";
-        btnDemo.prepend(createIcon("#icon-link"));
-        buttons.appendChild(btnDemo);
-      }
-
-      card.classList.add("reveal"); // entra con el scroll-reveal
-      card.append(img, title, description, buttons);
-      grid.appendChild(card);
-      registerReveal(card);
-    }
-  }
-
   initScrollspy();
 
   // Observa también los .reveal estáticos (títulos, skills, stack…).
