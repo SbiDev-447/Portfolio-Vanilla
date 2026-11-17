@@ -378,15 +378,31 @@ main {
 .projects {
   margin-bottom: var(--section-gap);
 
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    grid-auto-rows: 1fr;
+  .projects-marquee {
+    display: flex;
     gap: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    touch-action: pan-y;
+    cursor: grab;
+    scrollbar-width: thin;
+    scroll-behavior: auto;
+  }
+
+  .projects-marquee:focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 4px;
+  }
+
+  .projects-marquee.is-dragging {
+    cursor: grabbing;
+    user-select: none;
   }
 
   .project-card {
     display: grid;
+    flex: 0 0 clamp(260px, calc(100vw - 2.5rem), 380px);
     /* La imagen es un banner full-width arriba */
     grid-template-areas:
       "image"

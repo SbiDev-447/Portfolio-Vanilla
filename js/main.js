@@ -122,12 +122,213 @@ function initReveal() {
   document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
 }
 
+/* ============ Module: Projects marquee ============
+   Auto-scrolls the project list and keeps native scrolling available while
+   paused. Duplicate groups are hidden from assistive technology and focus. */
+function initProjectsMarquee() {
+  const viewport = document.querySelector(".projects-marquee");
+  if (!viewport) return;
+  const sourceCards = Array.from(viewport.children).filter((element) =>
+    element.classList.contains("project-card"),
+  );
+  if (!sourceCards.length) return;
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let cycleWidth = 0;
+  let frame = 0;
+  let lastFrame = 0;
+  let isHovered =
+    window.matchMedia("(hover: hover)").matches && viewport.matches(":hover");
+  let hasFocus = viewport.contains(document.activeElement);
+  let isPointerDown = false;
+  let activePointerId = null;
+  let pointerStartX = 0;
+  let scrollStart = 0;
+  let isDragging = false;
+  let suppressClickUntil = 0;
+  const speed = 30;
+
+  function stop() {
+    if (frame) cancelAnimationFrame(frame);
+    frame = 0;
+    lastFrame = 0;
+  }
+
+  function normalizeScrollPosition() {
+    if (!cycleWidth) return;
+    const offset =
+      (((viewport.scrollLeft - cycleWidth) % cycleWidth) + cycleWidth) %
+      cycleWidth;
+    const normalized = cycleWidth + offset;
+    if (Math.abs(normalized - viewport.scrollLeft) > 0.5) {
+      viewport.scrollLeft = normalized;
+    }
+  }
+
+  function animate(timestamp) {
+    if (lastFrame) {
+      const elapsed = Math.min(timestamp - lastFrame, 100);
+      viewport.scrollLeft += (elapsed * speed) / 1000;
+      normalizeScrollPosition();
+    }
+    lastFrame = timestamp;
+    frame = requestAnimationFrame(animate);
+  }
+
+  function start() {
+    if (frame || reducedMotion.matches) return;
+    lastFrame = 0;
+    frame = requestAnimationFrame(animate);
+  }
+
+  function syncPlayback() {
+    if (reducedMotion.matches || isHovered || hasFocus || isPointerDown) {
+      stop();
+    } else {
+      start();
+    }
+  }
+
+  function makeClone(card) {
+    const clone = card.cloneNode(true);
+    clone.dataset.projectsClone = "";
+    clone.setAttribute("aria-hidden", "true");
+    clone.setAttribute("inert", "");
+    clone.classList.remove("reveal");
+    return clone;
+  }
+
+  function rebuildClones() {
+    stop();
+    viewport
+      .querySelectorAll("[data-projects-clone]")
+      .forEach((clone) => clone.remove());
+    cycleWidth = 0;
+    viewport.scrollLeft = 0;
+
+    if (reducedMotion.matches) {
+      return;
+    }
+
+    const originalFirst = sourceCards[0];
+    const beforeClones = document.createDocumentFragment();
+    sourceCards.forEach((card) => beforeClones.append(makeClone(card)));
+    viewport.insertBefore(beforeClones, originalFirst);
+
+    const afterClones = document.createDocumentFragment();
+    let afterFirst = null;
+    sourceCards.forEach((card) => {
+      const clone = makeClone(card);
+      if (!afterFirst) afterFirst = clone;
+      afterClones.append(clone);
+    });
+    viewport.append(afterClones);
+
+    cycleWidth =
+      afterFirst.getBoundingClientRect().left -
+      originalFirst.getBoundingClientRect().left;
+    if (!cycleWidth) return;
+
+    const clonesAfter = Math.max(
+      1,
+      Math.ceil(viewport.clientWidth / cycleWidth),
+    );
+    for (let index = 1; index < clonesAfter; index += 1) {
+      sourceCards.forEach((card) => viewport.append(makeClone(card)));
+    }
+
+    viewport.scrollLeft = cycleWidth;
+    syncPlayback();
+  }
+
+  viewport.addEventListener("pointerenter", (event) => {
+    if (event.pointerType === "touch") return;
+    isHovered = true;
+    syncPlayback();
+  });
+
+  viewport.addEventListener("pointerleave", (event) => {
+    if (event.pointerType === "touch") return;
+    isHovered = false;
+    syncPlayback();
+  });
+
+  viewport.addEventListener("focusin", () => {
+    hasFocus = true;
+    syncPlayback();
+  });
+
+  viewport.addEventListener("focusout", (event) => {
+    if (!viewport.contains(event.relatedTarget)) {
+      hasFocus = false;
+      syncPlayback();
+    }
+  });
+
+  viewport.addEventListener("pointerdown", (event) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    activePointerId = event.pointerId;
+    pointerStartX = event.clientX;
+    scrollStart = viewport.scrollLeft;
+    isPointerDown = true;
+    syncPlayback();
+  });
+
+  window.addEventListener(
+    "pointermove",
+    (event) => {
+      if (event.pointerId !== activePointerId) return;
+      const delta = event.clientX - pointerStartX;
+      if (!isDragging && Math.abs(delta) > 5) {
+        isDragging = true;
+        viewport.classList.add("is-dragging");
+      }
+      if (isDragging) viewport.scrollLeft = scrollStart - delta;
+    },
+    { passive: true },
+  );
+
+  function finishPointer(event) {
+    if (event.pointerId !== activePointerId) return;
+    if (isDragging) suppressClickUntil = performance.now() + 100;
+    activePointerId = null;
+    isPointerDown = false;
+    isDragging = false;
+    viewport.classList.remove("is-dragging");
+    syncPlayback();
+  }
+
+  window.addEventListener("pointerup", finishPointer);
+  window.addEventListener("pointercancel", finishPointer);
+
+  viewport.addEventListener(
+    "click",
+    (event) => {
+      if (performance.now() >= suppressClickUntil) return;
+      event.preventDefault();
+      event.stopPropagation();
+      suppressClickUntil = 0;
+    },
+    true,
+  );
+
+  viewport.addEventListener("scroll", normalizeScrollPosition, {
+    passive: true,
+  });
+  window.addEventListener("resize", rebuildClones, { passive: true });
+  reducedMotion.addEventListener("change", rebuildClones);
+
+  rebuildClones();
+}
+
 /* ============ Bootstrap ============
    Una sola inicialización: scrollspy → reveal → tema. Las cards de
    proyectos son HTML estático (indexables sin JS) y entran en el reveal
    junto con el resto de elementos .reveal. */
 document.addEventListener("DOMContentLoaded", () => {
   initScrollspy();
+
+  initProjectsMarquee();
 
   // Observa también los .reveal estáticos (títulos, skills, stack…).
   initReveal();
