@@ -3,8 +3,7 @@
   font-family: "determination";
   src:
     url("../fonts/determination.woff2") format("woff2"),
-    url("../fonts/determination.woff") format("woff"),
-    url("../fonts/determination.ttf") format("truetype");
+    url("../fonts/determination.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -14,8 +13,7 @@
   font-family: "IosevkaTerm Nerd Font";
   src:
     url("../fonts/IosevkaTermNerdFont-Regular.woff2") format("woff2"),
-    url("../fonts/IosevkaTermNerdFont-Regular.woff") format("woff"),
-    url("../fonts/IosevkaTermNerdFont-Regular.ttf") format("truetype");
+    url("../fonts/IosevkaTermNerdFont-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -25,8 +23,7 @@
   font-family: "Roboto Condensed";
   src:
     url("../fonts/Roboto-Condensed.woff2") format("woff2"),
-    url("../fonts/Roboto-Condensed.woff") format("woff"),
-    url("../fonts/Roboto-Condensed.ttf") format("truetype");
+    url("../fonts/Roboto-Condensed.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -34,7 +31,8 @@
 
 /* === Custom Properties (Design Tokens) === */
 :root {
-  color-scheme: light; /* claro por defecto; [data-theme="dark"] lo invierte */
+  color-scheme: light;
+  /* claro por defecto; [data-theme="dark"] lo invierte */
 
   --green: #6e915f;
   --steel-blue: #6693bf;
@@ -66,7 +64,8 @@
   --nav-height: 80px;
   --photo-size: 150px;
   --container-width: 1200px;
-  --section-gap: 70px; /* separación vertical uniforme entre secciones */
+  --section-gap: 70px;
+  /* separación vertical uniforme entre secciones */
 }
 
 /* === Dark mode — override de design tokens ===
@@ -192,16 +191,14 @@ nav {
   .nav-item.is-active:hover {
     color: var(--ink);
     background: color-mix(in srgb, var(--green) 14%, transparent);
-    box-shadow: inset 0 0 0 1px
-      color-mix(in srgb, var(--green) 35%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--green) 35%, transparent);
   }
 
   /* Al pasar el ratón por la pill activa solo se intensifica el tinte,
      sin tocar la legibilidad del texto. */
   .nav-item.is-active:hover {
     background: color-mix(in srgb, var(--green) 22%, transparent);
-    box-shadow: inset 0 0 0 1px
-      color-mix(in srgb, var(--green) 45%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--green) 45%, transparent);
   }
 }
 
@@ -228,10 +225,14 @@ header {
     border-radius: 50%;
     border: 2px solid var(--orange);
     box-shadow: 0 0 45px color-mix(in srgb, var(--orange) 35%, transparent);
-    -webkit-user-drag: none; /* Chrome, Safari, Edge */
-    -khtml-user-drag: none; /* Konqueror */
-    -moz-user-drag: none; /* Firefox antiguo */
-    -o-user-drag: none; /* Opera antiguo */
+    -webkit-user-drag: none;
+    /* Chrome, Safari, Edge */
+    -khtml-user-drag: none;
+    /* Konqueror */
+    -moz-user-drag: none;
+    /* Firefox antiguo */
+    -o-user-drag: none;
+    /* Opera antiguo */
     user-drag: none;
   }
 
@@ -431,9 +432,11 @@ main {
     grid-area: image;
     width: 100%;
     height: auto;
-    aspect-ratio: 16 / 9; /* banner full-width, proporción de captura ancha */
+    aspect-ratio: 16 / 9;
+    /* banner full-width, proporción de captura ancha */
     align-self: start;
-    object-fit: cover; /* rellena el banner sin deformar, recortando lo que sobre */
+    object-fit: cover;
+    /* rellena el banner sin deformar, recortando lo que sobre */
     border: 1px solid color-mix(in srgb, var(--steel-blue) 35%, transparent);
     border-radius: 10px;
   }
@@ -441,9 +444,11 @@ main {
   .project-title {
     grid-area: title;
     font-family: var(--font-display);
-    font-size: 28px; /* más jerarquía visual: "peso" por tamaño, sin faux-bold */
+    font-size: 28px;
+    /* más jerarquía visual: "peso" por tamaño, sin faux-bold */
     color: var(--ink);
-    line-height: 1.1; /* evita que el título grande rompa el grid */
+    line-height: 1.1;
+    /* evita que el título grande rompa el grid */
   }
 
   .project-description {
@@ -490,9 +495,8 @@ main {
     box-shadow: var(--btn-shadow);
 
     svg {
-      fill: var(
-        --hover-color
-      ); /* igual que el hero: icono con el color del hover */
+      fill: var(--hover-color);
+      /* igual que el hero: icono con el color del hover */
     }
   }
 
@@ -666,17 +670,23 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap; /* si no entra en una fila, centra el texto bajo la imagen */
+    flex-wrap: wrap;
+    /* si no entra en una fila, centra el texto bajo la imagen */
     gap: 10px;
 
     img {
       width: 160px;
-      height: auto; /* respeta la proporción intrínseca 640x512 del logo */
+      height: auto;
+      /* respeta la proporción intrínseca 640x512 del logo */
       max-width: 100%;
-      -webkit-user-drag: none; /* Chrome, Safari, Edge */
-      -khtml-user-drag: none; /* Konqueror */
-      -moz-user-drag: none; /* Firefox antiguo */
-      -o-user-drag: none; /* Opera antiguo */
+      -webkit-user-drag: none;
+      /* Chrome, Safari, Edge */
+      -khtml-user-drag: none;
+      /* Konqueror */
+      -moz-user-drag: none;
+      /* Firefox antiguo */
+      -o-user-drag: none;
+      /* Opera antiguo */
       user-drag: none;
       image-rendering: pixelated;
     }
@@ -700,7 +710,8 @@ footer {
      espacio (≥1200px): participa del layout en vez de flotar suelto.
      En pantallas menores vuelve al margen fijo de 12px. */
   right: max(12px, calc((100vw - var(--container-width)) / 2 + 12px));
-  z-index: 10000; /* por encima de la nav (9999) */
+  z-index: 10000;
+  /* por encima de la nav (9999) */
 }
 
 .theme-toggle__btn {
@@ -743,7 +754,8 @@ footer {
   width: 22px;
   height: 22px;
   fill: currentColor;
-  transition: fill 0.25s ease; /* espejo del transition de color del botón */
+  transition: fill 0.25s ease;
+  /* espejo del transition de color del botón */
 }
 
 .theme-toggle__icon--moon {
@@ -814,7 +826,8 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
 }
 
 .theme-menu__item[aria-checked="true"]::after {
-  content: "\2713"; /* ✓ */
+  content: "\2713";
+  /* ✓ */
   font-weight: bold;
 }
 
@@ -841,7 +854,8 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
   position: fixed;
   top: 12px;
   left: 12px;
-  z-index: 10001; /* por encima del theme-toggle (10000) */
+  z-index: 10001;
+  /* por encima del theme-toggle (10000) */
   background: var(--cream);
   color: var(--ink);
   border: 1px solid var(--ink);
@@ -859,7 +873,8 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
   transition:
     opacity 0.5s ease,
     transform 0.5s ease,
-    box-shadow 0.3s ease; /* conserva el glow de hover de las cards */
+    box-shadow 0.3s ease;
+  /* conserva el glow de hover de las cards */
 }
 
 .js .reveal.is-visible {
@@ -886,6 +901,7 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
 
 /* Sin animaciones ni scroll suave: todo visible al instante. */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -930,7 +946,8 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
 /* --- ≤768 --- */
 @media (max-width: 768px) {
   nav {
-    display: grid; /* una sola fila aunque la pantalla sea angosta */
+    display: grid;
+    /* una sola fila aunque la pantalla sea angosta */
     grid-template-columns: repeat(5, 1fr);
     gap: 4px;
     padding: 4px;
@@ -994,7 +1011,8 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
   }
 
   footer .sobremi {
-    grid-template-columns: 1fr; /* 2 columnas → 1 */
+    grid-template-columns: 1fr;
+    /* 2 columnas → 1 */
     gap: 30px;
     justify-items: center;
     text-align: center;
@@ -1070,7 +1088,8 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
   }
 
   nav {
-    display: grid; /* una sola fila aunque la pantalla sea angosta */
+    display: grid;
+    /* una sola fila aunque la pantalla sea angosta */
     grid-template-columns: repeat(5, 1fr);
     gap: 3px;
     padding: 4px;
@@ -1177,7 +1196,8 @@ html[data-theme="dark"] .theme-toggle__icon--moon {
     }
 
     .project-title {
-      font-size: 24px; /* mantiene el peso del título también en ≤768px */
+      font-size: 24px;
+      /* mantiene el peso del título también en ≤768px */
     }
 
     .project-description {
